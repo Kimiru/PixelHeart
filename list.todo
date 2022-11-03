@@ -1,0 +1,56 @@
+Image:
+    - Resize
+
+File:
+    - Save
+    - Open
+    - Export (with calcs)
+    - Import (with calcs)
+
+Painting:
+    - Pen
+    - Bucket
+    - Line
+    - Rectangle
+    - Color picker
+    - Move:
+        - Grab
+        - Target to center
+        - If selection, 
+            move selection on a virtual layer until not selected, 
+            then copy down
+    - Eraser
+    - Magic bucket
+    - Copy/Paste
+    - Rectangle Selection:
+        - Ctrl Selection to add to current selection
+
+Visuals:
+    - Background grid (grayscale)
+    - Wire grid
+    - Zoom in&out BUTTONS
+
+Layers:
+    - Layers Selection
+    - Selection Layer
+    - Switch layers position
+    - Merging layers Down
+    - Clone layer
+    - New layer
+
+Transformation:
+    - Flip V/H
+    - Rotate 90°
+
+Colors:
+    - Hex input
+    - RGB input
+    - HSV input/selector
+    - Colors storage
+    - Extract color from image
+    - Save color into custom palette
+    - Save custom palette into navigator
+
+Langfiles:
+    - Français
+    - English
