@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PixelHeart</title>
 
     <link rel="stylesheet" href="./css/PixelHeart.css">
 
@@ -29,28 +29,38 @@
 
             <div class="tool">
                 <input id="line-tool" type="radio" name="tool">
-                <label for="line-tool" v-bind:title="lang.line[language]" v-on:click="changeTool('line')"></label>
+                <label for="line-tool" v-bind:title="lang.line[language] + ' (l)'"
+                    v-on:click="changeTool('line')"></label>
             </div>
             <div class="tool">
                 <input id="move-tool" type="radio" name="tool">
-                <label for="move-tool" v-bind:title="lang.move[language]" v-on:click="changeTool('move')"></label>
+                <label for="move-tool" v-bind:title="lang.move[language] + ' (m)'"
+                    v-on:click="changeTool('move')"></label>
             </div>
 
             <div class="tool">
                 <input id="rectangle-tool" type="radio" name="tool">
-                <label for="rectangle-tool" v-bind:title="lang.rectangle[language]"
+                <label for="rectangle-tool" v-bind:title="lang.rectangle[language] + ' (r)'"
                     v-on:click="changeTool('rectangle')"></label>
             </div>
             <div class="tool">
                 <input id="select-tool" type="radio" name="tool">
-                <label for="select-tool" v-bind:title="lang.select[language]" v-on:click="changeTool('select')"></label>
+                <label for="select-tool" v-bind:title="lang.select[language] + ' (s)'"
+                    v-on:click="changeTool('select')"></label>
             </div>
 
             <div class="tool">
-                <label v-bind:title="lang.undo[language] + ' (ctrl+z)'"></label>
+                <label v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
             </div>
             <div class="tool">
-                <label v-bind:title="lang.redo[language] + ' (ctrl+y)'"></label>
+                <label v-bind:title="lang.redo[language] + ' (ctrl+y)'" v-on:click="redo"></label>
+            </div>
+
+            <div class="tool">
+                <label v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
+            </div>
+            <div class="tool">
+                <label v-bind:title="lang.zoomout[language]" v-on:click="zoom(-1)"></label>
             </div>
 
         </div>

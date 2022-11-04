@@ -11,7 +11,7 @@ const vm = Vue.createApp({
 
     data() {
         return {
-            language: 'en',
+            language: 'end',
             lang,
             tool: tools.pen,
             tools,
@@ -24,6 +24,15 @@ const vm = Vue.createApp({
         changeTool: function (tool) {
             document.querySelector('#' + tool + '-tool').checked = true
             vm.tool = tools[tool]
+        },
+        zoom: function (v) {
+            engine.scene.getTags('image')[0].zoom(v)
+        },
+        undo: function () {
+            engine.scene.getTags('image')[0].undo()
+        },
+        redo: function () {
+            engine.scene.getTags('image')[0].redo()
         },
         setSize: function (width, height) {
 

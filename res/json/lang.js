@@ -29,11 +29,19 @@ export default {
     },
     undo: {
         fr: 'Défaire',
-        en: 'Undo'
+        en: 'Undo',
 
     },
     redo: {
         fr: 'Refaire',
-        en: 'Redo'
+        en: 'Redo',
+    },
+    zoomin: {
+        fr: 'Zoomer  (ctrl+haut)',
+        en: 'Zoom in  (ctrl+up)',
+    },
+    zoomout: {
+        fr: 'Dézoomer  (ctrl+bas)',
+        en: 'Zoom out  (ctrl+down)',
     }
 }

@@ -1,4 +1,4 @@
-import { GameObject, GameScene, ImageManipulator, range, Vector } from "../2DGameEngine/js/2DGameEngine.js";
+import { Camera, GameObject, GameScene, ImageManipulator, range, Vector } from "../2DGameEngine/js/2DGameEngine.js";
 import tools from "./Tools.js";
 
 class PixelHeartImage extends GameObject {
@@ -101,60 +101,104 @@ class PixelHeartImage extends GameObject {
 
     }
 
-    update(dt) {
+    zoom(value = 1) {
 
-        this.transform.scale.set(vm.imageSize.width, vm.imageSize.height)
+        let scale = Math.min(1, this.scene.camera.transform.scale.x * (1 - value * .1))
+
+        this.scene.camera.transform.scale.set(scale, scale)
+
+    }
+
+    keyEvent() {
+
+        let input = this.engine.input
+
+        if (input.isDown('ControlLeft')) {
+            if (input.isCharPressed('z')) this.undo()
+            else if (input.isCharPressed('y')) this.redo()
+            else if (input.isPressed('ArrowUp')) this.zoom(1)
+            else if (input.isPressed('ArrowDown')) this.zoom(-1)
+        }
+
+        else if (input.isCharPressed('p')) this.vm.changeTool('pen')
+        else if (input.isCharPressed('e')) this.vm.changeTool('eraser')
+        else if (input.isCharPressed('l')) this.vm.changeTool('line')
+        else if (input.isCharPressed('r')) this.vm.changeTool('rectangle')
+        else if (input.isCharPressed('m')) this.vm.changeTool('move')
+        else if (input.isCharPressed('s')) this.vm.changeTool('select')
+        else if (input.isPressed('ArrowLeft')) this.scene.camera.transform.translation.x--
+        else if (input.isPressed('ArrowRight')) this.scene.camera.transform.translation.x++
+        else if (input.isPressed('ArrowUp')) this.scene.camera.transform.translation.y++
+        else if (input.isPressed('ArrowDown')) this.scene.camera.transform.translation.y--
+
+    }
+
+    pen() {
 
         let input = this.engine.input
         let mouse = input.mouse
         let position = this.mouseToCanvas(mouse.position)
         let layer = this.layers[this.selectedLayer]
 
-        if (input.isDown('ControlLeft') && input.isCharPressed('z'))
-            this.undo()
-        if (input.isDown('ControlLeft') && input.isCharPressed('y'))
-            this.redo()
-        if (input.isCharPressed('p'))
-            this.vm.changeTool('pen')
-        if (input.isCharPressed('e'))
-            this.vm.changeTool('eraser')
-        if (input.isCharPressed('l'))
-            this.vm.changeTool('line')
-
-        if (this.vm.tool === tools.pen) {
-            if (mouse.left)
-                this.logLayers(() => {
-                    if (!position.equal(this.lastPosition)) {
-                        layer.setPixel(position.x, position.y, this.vm.color)
-                        this.lastPosition.copy(position)
-                    }
-                })
-            else
-                this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
-        }
-
-        else if (this.vm.tool === tools.eraser) {
-            if (mouse.left)
-                this.logLayers(() => {
-                    layer.setPixelRGBA(position.x, position.y, 0, 0, 0, 0)
-                })
-            else this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
-        }
-        else if (this.vm.tool === tools.line) {
-            if (mouse.left) {
-                if (this.lastPosition.equalS(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
+        if (mouse.left)
+            this.logLayers(() => {
+                if (!position.equal(this.lastPosition)) {
+                    layer.setPixel(position.x, position.y, this.vm.color)
                     this.lastPosition.copy(position)
+                }
+            })
+        else
+            this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
 
-            }
-            else {
-                if (!this.lastPosition.equalS(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
-                    this.logLayers(() => {
-                        this.plotLine(layer.ctx, this.lastPosition, position, this.vm.color)
-                    })
+    }
 
-                this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
-            }
+    eraser() {
+
+        let input = this.engine.input
+        let mouse = input.mouse
+        let position = this.mouseToCanvas(mouse.position)
+        let layer = this.layers[this.selectedLayer]
+
+        if (mouse.left)
+            this.logLayers(() => {
+                layer.setPixelRGBA(position.x, position.y, 0, 0, 0, 0)
+            })
+        else this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+
+    }
+
+    line() {
+
+        let input = this.engine.input
+        let mouse = input.mouse
+        let position = this.mouseToCanvas(mouse.position)
+        let layer = this.layers[this.selectedLayer]
+
+        if (mouse.left) {
+            if (this.lastPosition.equalS(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
+                this.lastPosition.copy(position)
+
         }
+        else {
+            if (!this.lastPosition.equalS(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
+                this.logLayers(() => {
+                    this.plotLine(layer.ctx, this.lastPosition, position, this.vm.color)
+                })
+
+            this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+        }
+    }
+
+    update(dt) {
+
+        this.transform.scale.set(vm.imageSize.width, vm.imageSize.height)
+
+        this.keyEvent()
+
+        if (this.vm.tool === tools.pen) this.pen()
+        else if (this.vm.tool === tools.eraser) this.eraser()
+        else if (this.vm.tool === tools.line) this.line()
+
         else { }
 
     }
@@ -271,6 +315,8 @@ export class PixelHeartScene extends GameScene {
     constructor(vm) {
 
         super()
+
+        this.camera = new Camera()
 
         this.pixelHeartImage = new PixelHeartImage(vm)
 
