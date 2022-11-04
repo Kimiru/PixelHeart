@@ -25,10 +25,10 @@ Painting:
     - Rectangle Selection:
         - Ctrl Selection to add to current selection
 
-Visuals:
-    - Background grid (grayscale)
-    - Wire grid
-    - Zoom in&out BUTTONS
+Visuals: @done
+    - Background grid (grayscale): @done
+    - Wire grid: @done
+    - Zoom in&out BUTTONS: @done
 
 Layers:
     - Layers Selection
