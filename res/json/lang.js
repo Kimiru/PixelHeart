@@ -43,5 +43,9 @@ export default {
     zoomout: {
         fr: 'Dézoomer  (ctrl+bas)',
         en: 'Zoom out  (ctrl+down)',
+    },
+    grid: {
+        fr: 'Afficher la grille',
+        en: 'Display grid',
     }
 }

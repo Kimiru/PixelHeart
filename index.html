@@ -16,6 +16,7 @@
 <body>
 
     <div id="app">
+
         <div id="tools">
             <div class="tool">
                 <input id="pen-tool" type="radio" name="tool" checked>
@@ -61,6 +62,14 @@
             </div>
             <div class="tool">
                 <label v-bind:title="lang.zoomout[language]" v-on:click="zoom(-1)"></label>
+            </div>
+
+            <!-- <div class="tool">
+                <label v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
+            </div> -->
+            <div class="tool">
+                <input id="grid-tool" type="checkbox" v-model="drawGrid">
+                <label for="grid-tool" v-bind:title="lang.grid[language]"></label>
             </div>
 
         </div>

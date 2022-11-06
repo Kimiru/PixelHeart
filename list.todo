@@ -8,22 +8,17 @@ File:
     - Import (with calcs)
 
 Painting:
-    - Pen
+    - Pen: @done
     - Bucket
-    - Line
-    - Rectangle
+    - Line: @done
+    - Rectangle: @done
     - Color picker
-    - Move:
-        - Grab
-        - Target to center
-        - If selection, 
-            move selection on a virtual layer until not selected, 
-            then copy down
-    - Eraser
+    - Move: @done
+        - If selection, move selection: @done
+    - Eraser: @done
     - Magic bucket
     - Copy/Paste
-    - Rectangle Selection:
-        - Ctrl Selection to add to current selection
+    - Rectangle Selection: @done
 
 Visuals: @done
     - Background grid (grayscale): @done

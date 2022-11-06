@@ -1,11 +1,19 @@
-import { Camera, GameObject, GameScene, ImageManipulator, range, Vector } from "../2DGameEngine/js/2DGameEngine.js";
+import { Camera, GameObject, GameScene, ImageManipulator, range, Rectangle, Vector } from "../2DGameEngine/js/2DGameEngine.js";
+import MoveCommand from "./Commands/MoveCommand.js";
+import SelectCommand from "./Commands/SelectCommand.js";
+import PixelImage from "./PixelImage.js";
 import tools from "./Tools.js";
 
 class PixelHeartImage extends GameObject {
 
+    image = new PixelImage()
+
     layers = []
     selectedLayer = 0
     vm
+    selectedArea = null
+    movingLayer = null
+    lastTool = null
 
     undoStack = []
     redoStack = []
@@ -79,25 +87,13 @@ class PixelHeartImage extends GameObject {
 
     undo() {
 
-        if (!this.undoStack.length) return
-
-        this.redoStack.push(this.layers)
-        this.layers = this.undoStack.pop()
-
-        this.vm.imageSize.width = this.layers[0].width
-        this.vm.imageSize.height = this.layers[0].height
+        this.image.undo()
 
     }
 
     redo() {
 
-        if (!this.redoStack.length) return
-
-        this.undoStack.push(this.layers)
-        this.layers = this.redoStack.pop()
-
-        this.vm.imageSize.width = this.layers[0].width
-        this.vm.imageSize.height = this.layers[0].height
+        this.image.redo()
 
     }
 
@@ -120,86 +116,68 @@ class PixelHeartImage extends GameObject {
             else if (input.isPressed('ArrowDown')) this.zoom(-1)
         }
 
+        // Change tools
         else if (input.isCharPressed('p')) this.vm.changeTool('pen')
         else if (input.isCharPressed('e')) this.vm.changeTool('eraser')
         else if (input.isCharPressed('l')) this.vm.changeTool('line')
         else if (input.isCharPressed('r')) this.vm.changeTool('rectangle')
         else if (input.isCharPressed('m')) this.vm.changeTool('move')
         else if (input.isCharPressed('s')) this.vm.changeTool('select')
-        else if (input.isPressed('ArrowLeft')) this.scene.camera.transform.translation.x--
-        else if (input.isPressed('ArrowRight')) this.scene.camera.transform.translation.x++
-        else if (input.isPressed('ArrowUp')) this.scene.camera.transform.translation.y++
-        else if (input.isPressed('ArrowDown')) this.scene.camera.transform.translation.y--
+
+        this.move()
 
     }
 
-    pen() {
-
+    move() {
         let input = this.engine.input
-        let mouse = input.mouse
-        let position = this.mouseToCanvas(mouse.position)
-        let layer = this.layers[this.selectedLayer]
 
-        if (mouse.left)
-            this.logLayers(() => {
-                if (!position.equal(this.lastPosition)) {
-                    layer.setPixel(position.x, position.y, this.vm.color)
-                    this.lastPosition.copy(position)
-                }
-            })
-        else
-            this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
-
-    }
-
-    eraser() {
-
-        let input = this.engine.input
-        let mouse = input.mouse
-        let position = this.mouseToCanvas(mouse.position)
-        let layer = this.layers[this.selectedLayer]
-
-        if (mouse.left)
-            this.logLayers(() => {
-                layer.setPixelRGBA(position.x, position.y, 0, 0, 0, 0)
-            })
-        else this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
-
-    }
-
-    line() {
-
-        let input = this.engine.input
-        let mouse = input.mouse
-        let position = this.mouseToCanvas(mouse.position)
-        let layer = this.layers[this.selectedLayer]
-
-        if (mouse.left) {
-            if (this.lastPosition.equalS(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
-                this.lastPosition.copy(position)
-
+        if (input.isPressed('ArrowLeft')) {
+            this.scene.camera.transform.translation.x--
         }
-        else {
-            if (!this.lastPosition.equalS(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
-                this.logLayers(() => {
-                    this.plotLine(layer.ctx, this.lastPosition, position, this.vm.color)
-                })
-
-            this.lastPosition.set(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+        else if (input.isPressed('ArrowRight')) {
+            this.scene.camera.transform.translation.x++
         }
+        else if (input.isPressed('ArrowUp')) {
+            this.scene.camera.transform.translation.y++
+        }
+        else if (input.isPressed('ArrowDown')) {
+            this.scene.camera.transform.translation.y--
+        }
+
+
     }
+
+    isTool(tool) { return this.vm.tool === tool }
 
     update(dt) {
 
-        this.transform.scale.set(vm.imageSize.width, vm.imageSize.height)
+        let input = this.engine.input
+        let mouse = input.mouse
+        let position = this.mouseToCanvas(mouse.position)
 
-        this.keyEvent()
+        this.transform.scale.set(this.image.width, this.image.height)
 
-        if (this.vm.tool === tools.pen) this.pen()
-        else if (this.vm.tool === tools.eraser) this.eraser()
-        else if (this.vm.tool === tools.line) this.line()
 
-        else { }
+        if (this.lastTool !== this.vm.tool) {
+
+            if (typeof this.lastTool === 'function') this.lastTool.endOfUse(this.image)
+            if (typeof this.vm.tool === 'function') this.vm.tool.startOfUse(this.image)
+
+            this.lastTool = this.vm.tool
+        }
+
+
+        if (typeof this.vm.tool === 'function') {
+
+            let command = this.vm.tool.use(input, position, mouse.left, this.vm.color, this.image)
+
+            if (command) (this.image.addCommand(command))
+
+        }
+
+        if (typeof this.vm.tool !== 'function' || !this.vm.tool.hasCommandInBaking() || this.vm.tool === MoveCommand)
+            this.keyEvent()
+
 
     }
 
@@ -221,7 +199,9 @@ class PixelHeartImage extends GameObject {
 
         while (true) {
 
-            ctx.fillRect(x0, y0, 1, 1)
+
+            if (!this.selectedArea || this.selectedArea.contains(new Vector(x0, y0)))
+                ctx.fillRect(x0, y0, 1, 1)
             if (x0 === x1 && y0 === y1) break
             let e2 = 2 * error
             if (e2 >= dy) {
@@ -237,72 +217,157 @@ class PixelHeartImage extends GameObject {
         }
     }
 
-    draw(ctx) {
+    plotRect(ctx, v0, v1, color) {
+
+        let v01 = new Vector(v0.x, v1.y)
+        let v10 = new Vector(v1.x, v0.y)
+
+        this.plotLine(ctx, v0, v01, color)
+        this.plotLine(ctx, v0, v10, color)
+        this.plotLine(ctx, v1, v01, color)
+        this.plotLine(ctx, v1, v10, color)
+
+    }
+
+    // GLOBAL DRAW FUNCTIONS
+
+    /**
+     * Display the color gray background used to discern used alpha colors
+     * 
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    drawGrayBackground(ctx) {
 
         ctx.fillStyle = 'lightgray'
         ctx.fillRect(-.5, -.5, 1, 1)
         ctx.fillStyle = 'gray'
 
-        let scale = new Vector(this.vm.imageSize.width, this.vm.imageSize.height)
+        let width = this.image.width
+        let height = this.image.height
 
-        let size = new Vector(.5, .5).div(scale)
+        // .5 / value ==> 4square per pixel
+        let squaresWidth = .5 / width
+        let squaresHeight = .5 / height
 
-        for (let x = 0; x < scale.x * 2; x++)
-            for (let y = 0; y < scale.y * 2; y++) {
-                if ((x & 1) ^ (y & 1)) {
-                    ctx.fillRect(-.5 + x * size.x, -.5 + y * size.y, size.x, size.y)
-                }
-            }
+        for (let x = 0; x < width * 2; x++) for (let y = 0; y < height * 2; y++)
+            if ((x & 1) ^ (y & 1))
+                ctx.fillRect(
+                    -.5 + x * squaresWidth,
+                    -.5 + y * squaresHeight,
+                    squaresWidth,
+                    squaresHeight
+                )
+
+    }
+
+    /**
+     * Display the black grid in front of the image to discern individual pixels when drawing large bodies of color
+     * 
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    drawBlackGrid(ctx) {
 
         ctx.stokeStyle = 'black'
         ctx.lineWidth = .003
-        for (let index = 1; index < scale.y; index++) {
+
+        let width = this.image.width
+        let height = this.image.height
+
+        let pixelsWidth = 1 / width
+        let pixelsHeight = 1 / height
+
+        for (let index = 1; index < height; index++) {
             ctx.beginPath()
-            ctx.moveTo(-.5, -.5 + index * 2 * size.y)
-            ctx.lineTo(.5, -.5 + index * 2 * size.y)
-            // ctx.moveTo(index * size.y, -.5)
-            // ctx.lineTo(index * size.y, .5)
+            ctx.moveTo(-.5, -.5 + index * pixelsHeight)
+            ctx.lineTo(.5, -.5 + index * pixelsHeight)
             ctx.stroke()
 
         }
-        for (let index = 1; index < scale.x; index++) {
+        for (let index = 1; index < width; index++) {
             ctx.beginPath()
-            ctx.moveTo(-.5 + index * 2 * size.x, -.5)
-            ctx.lineTo(-.5 + index * 2 * size.x, .5)
+            ctx.moveTo(-.5 + index * pixelsWidth, -.5)
+            ctx.lineTo(-.5 + index * pixelsWidth, .5)
             ctx.stroke()
 
         }
 
-        for (let [index, layer] of Object.entries(this.layers)) {
+    }
 
-            layer.executeDraw(ctx)
+    draw(ctx) {
 
-            if (Number(index) === this.selectedLayer) {
-                let input = this.engine.input
-                let mouse = input.mouse
-                let position = this.mouseToCanvas(mouse.position)
+        this.drawGrayBackground(ctx)
+
+        this.image.draw(ctx, this.vm.tool)
+
+        if (this.vm.drawGrid)
+            this.drawBlackGrid(ctx)
+
+        if (SelectCommand.selectionRectangle)
+            SelectCommand.drawSelectionRectangle(ctx, this.image)
+
+        if (false)
+            for (let [index, layer] of Object.entries(this.layers)) {
+
+                layer.executeDraw(ctx)
+
+                if (Number(index) === this.selectedLayer) {
+                    let input = this.engine.input
+                    let mouse = input.mouse
+                    let position = this.mouseToCanvas(mouse.position)
 
 
-                if (this.vm.tool === tools.line) {
+                    if (this.vm.tool === tools.line) {
+                        if (mouse.left) {
+                            let im = new ImageManipulator(this.vm.imageSize.width, this.vm.imageSize.height)
+                            this.plotLine(im.ctx, this.lastPosition, position, this.vm.color)
+                            im.executeDraw(ctx)
+                        }
+                    }
+                    else if (this.vm.tool === tools.rectangle) {
+                        if (mouse.left) {
+                            let im = new ImageManipulator(this.vm.imageSize.width, this.vm.imageSize.height)
+                            this.plotRect(im.ctx, this.lastPosition, position, this.vm.color)
+                            im.executeDraw(ctx)
+                        }
+                    }
+                    else if (this.vm.tool === tools.select) {
+                        if (mouse.left) {
 
-                    if (mouse.left) {
+                            let delta = position.clone().sub(this.lastPosition).abs().addS(1, 1)
+                            let middleman = this.lastPosition.clone().add(position).divS(2).subS(this.vm.imageSize.width / 2, this.vm.imageSize.height / 2)
+                            let rect = new Rectangle(middleman.x, middleman.y, delta.x, delta.y)
 
-                        let im = new ImageManipulator(this.vm.imageSize.width, this.vm.imageSize.height)
-                        this.plotLine(im.ctx, this.lastPosition, position, this.vm.color)
-
-                        ctx.save()
-                        // ctx.scale(1 / this.vm.imageSize.width, -1 / this.vm.imageSize.height)
-                        // ctx.translate(-this.vm.imageSize.width / 2, - this.vm.imageSize.height / 2)
-
-                        im.executeDraw(ctx)
-
-                        ctx.restore()
+                            ctx.save()
+                            ctx.scale(1 / this.vm.imageSize.width, -1 / this.vm.imageSize.height)
+                            ctx.lineWidth = .2
+                            ctx.strokeStyle = 'blue'
+                            ctx.strokeRect(rect.left + .5, rect.bottom + .5, rect.w, rect.h)
+                            ctx.restore()
+                        }
                     }
 
-                }
-            }
+                    if (this.selectedArea) {
 
-        }
+                        ctx.save()
+                        ctx.scale(1 / this.vm.imageSize.width, -1 / this.vm.imageSize.height)
+                        ctx.lineWidth = .2
+                        ctx.strokeStyle = 'blue'
+                        ctx.strokeRect(
+                            this.selectedArea.left - this.vm.imageSize.width / 2 + .5,
+                            this.selectedArea.bottom - this.vm.imageSize.height / 2 + .5,
+                            this.selectedArea.w, this.selectedArea.h)
+                        ctx.restore()
+
+                    }
+                    if (this.movingLayer) {
+                        ctx.save()
+                        ctx.translate(size.x * 2 * this.movingLayer.transform.translation.x, -size.y * 2 * this.movingLayer.transform.translation.y)
+                        this.movingLayer.draw(ctx)
+                        ctx.restore()
+                    }
+                }
+
+            }
 
     }
 

@@ -52,7 +52,7 @@ body {
     display: inline;
 }
 
-.tool>input[type=radio] {
+.tool>input[type=radio], .tool>input[type=checkbox] {
 
     display: none;
 
@@ -61,6 +61,12 @@ body {
 .tool>input[type=radio]:checked+label {
 
     border-color: lightpink;
+
+}
+
+.tool>input[type=checkbox]:checked+label {
+
+    border-color: red;
 
 }
 

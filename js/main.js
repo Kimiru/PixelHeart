@@ -11,13 +11,14 @@ const vm = Vue.createApp({
 
     data() {
         return {
-            language: 'end',
+            language: 'en',
             lang,
             tool: tools.pen,
             tools,
             imageSize: { width: 32, height: 32 },
             color: 'black',
-            engine: null
+            engine: null,
+            drawGrid: true,
         }
     },
     methods: {
@@ -43,6 +44,11 @@ const vm = Vue.createApp({
 
             obj.logLayers()
             obj.updateImageSizes()
+
+        },
+        toggleGrid: function () {
+
+            console.log(this.drawGrid)
 
         }
     }
