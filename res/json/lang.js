@@ -47,5 +47,31 @@ export default {
     grid: {
         fr: 'Afficher la grille',
         en: 'Display grid',
-    }
+    },
+    picker: {
+        fr: 'Pipette',
+        en: 'Eyedropper'
+    },
+    background: {
+        fr: 'Afficher fond',
+        en: 'Display background',
+    },
+
+
+    r: {
+        fr: 'R',
+        en: 'R',
+    },
+    g: {
+        fr: 'V',
+        en: 'G',
+    },
+    b: {
+        fr: 'B',
+        en: 'B',
+    },
+    a: {
+        fr: 'Alpha',
+        en: 'Alpha',
+    },
 }

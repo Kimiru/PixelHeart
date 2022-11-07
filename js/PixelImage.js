@@ -92,6 +92,8 @@ export default class PixelImage extends GameObject {
         for (let command of this.commands)
             command.exec(this)
 
+        window.vm.currentColors = this.usedColors()
+
     }
 
     /**
@@ -104,6 +106,8 @@ export default class PixelImage extends GameObject {
 
         if (this.checkCommandUsefullness(command))
             this.commands.push(command)
+
+        window.vm.currentColors = this.usedColors()
 
     }
 
@@ -130,6 +134,31 @@ export default class PixelImage extends GameObject {
         for (let calc of this.calcs) str += calc.print()
 
         return str
+
+    }
+
+    usedColors() {
+
+        let colorSet = new Set()
+
+        for (let calc of this.calcs) {
+
+            for (let x = 0; x < calc.width; x++)
+                for (let y = 0; y < calc.height; y++)
+                    colorSet.add('#' + calc.getPixel(x, y).map(v => {
+
+                        let str = Number(v).toString(16)
+                        if (str.length < 2) str = '0' + str
+
+                        return str
+
+                    }).join(''))
+
+        }
+
+        colorSet.delete('#00000000')
+
+        return [...colorSet]
 
     }
 

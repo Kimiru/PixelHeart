@@ -123,6 +123,7 @@ class PixelHeartImage extends GameObject {
         else if (input.isCharPressed('r')) this.vm.changeTool('rectangle')
         else if (input.isCharPressed('m')) this.vm.changeTool('move')
         else if (input.isCharPressed('s')) this.vm.changeTool('select')
+        else if (input.isCharPressed('k')) this.vm.changeTool('picker')
 
         this.move()
 
@@ -295,7 +296,8 @@ class PixelHeartImage extends GameObject {
 
     draw(ctx) {
 
-        this.drawGrayBackground(ctx)
+        if (this.vm.drawBackground)
+            this.drawGrayBackground(ctx)
 
         this.image.draw(ctx, this.vm.tool)
 

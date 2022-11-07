@@ -18,63 +18,109 @@
     <div id="app">
 
         <div id="tools">
-            <div class="tool">
-                <input id="pen-tool" type="radio" name="tool" checked>
-                <label for="pen-tool" v-bind:title="lang.pen[language] + ' (p)'" v-on:click="changeTool('pen')"></label>
-            </div>
-            <div class="tool">
-                <input id="eraser-tool" type="radio" name="tool">
-                <label for="eraser-tool" v-bind:title="lang.eraser[language] + ' (e)'"
-                    v-on:click="changeTool('eraser')"></label>
-            </div>
-
-            <div class="tool">
-                <input id="line-tool" type="radio" name="tool">
-                <label for="line-tool" v-bind:title="lang.line[language] + ' (l)'"
-                    v-on:click="changeTool('line')"></label>
-            </div>
-            <div class="tool">
-                <input id="move-tool" type="radio" name="tool">
-                <label for="move-tool" v-bind:title="lang.move[language] + ' (m)'"
-                    v-on:click="changeTool('move')"></label>
+            <div>
+                <div class="tool">
+                    <input id="pen-tool" type="radio" name="tool" checked>
+                    <label for="pen-tool" v-bind:title="lang.pen[language] + ' (p)'"
+                        v-on:click="changeTool('pen')"></label>
+                </div>
+                <div class="tool">
+                    <input id="eraser-tool" type="radio" name="tool">
+                    <label for="eraser-tool" v-bind:title="lang.eraser[language] + ' (e)'"
+                        v-on:click="changeTool('eraser')"></label>
+                </div>
             </div>
 
-            <div class="tool">
-                <input id="rectangle-tool" type="radio" name="tool">
-                <label for="rectangle-tool" v-bind:title="lang.rectangle[language] + ' (r)'"
-                    v-on:click="changeTool('rectangle')"></label>
-            </div>
-            <div class="tool">
-                <input id="select-tool" type="radio" name="tool">
-                <label for="select-tool" v-bind:title="lang.select[language] + ' (s)'"
-                    v-on:click="changeTool('select')"></label>
+            <div>
+                <div class="tool">
+                    <input id="line-tool" type="radio" name="tool">
+                    <label for="line-tool" v-bind:title="lang.line[language] + ' (l)'"
+                        v-on:click="changeTool('line')"></label>
+                </div>
+                <div class="tool">
+                    <input id="rectangle-tool" type="radio" name="tool">
+                    <label for="rectangle-tool" v-bind:title="lang.rectangle[language] + ' (r)'"
+                        v-on:click="changeTool('rectangle')"></label>
+                </div>
+
             </div>
 
-            <div class="tool">
-                <label v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
-            </div>
-            <div class="tool">
-                <label v-bind:title="lang.redo[language] + ' (ctrl+y)'" v-on:click="redo"></label>
+            <div>
+                <div class="tool">
+                    <input id="select-tool" type="radio" name="tool">
+                    <label for="select-tool" v-bind:title="lang.select[language] + ' (s)'"
+                        v-on:click="changeTool('select')"></label>
+                </div>
+                <div class="tool">
+                    <input id="move-tool" type="radio" name="tool">
+                    <label for="move-tool" v-bind:title="lang.move[language] + ' (m)'"
+                        v-on:click="changeTool('move')"></label>
+                </div>
+
             </div>
 
-            <div class="tool">
-                <label v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
-            </div>
-            <div class="tool">
-                <label v-bind:title="lang.zoomout[language]" v-on:click="zoom(-1)"></label>
+            <div>
+                <div class="tool">
+                    <label v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
+                </div>
+                <div class="tool">
+                    <label v-bind:title="lang.redo[language] + ' (ctrl+y)'" v-on:click="redo"></label>
+                </div>
             </div>
 
-            <!-- <div class="tool">
-                <label v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
-            </div> -->
-            <div class="tool">
-                <input id="grid-tool" type="checkbox" v-model="drawGrid">
-                <label for="grid-tool" v-bind:title="lang.grid[language]"></label>
+            <div>
+                <div class="tool">
+                    <label v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
+                </div>
+                <div class="tool">
+                    <label v-bind:title="lang.zoomout[language]" v-on:click="zoom(-1)"></label>
+                </div>
+            </div>
+
+            <div>
+                <div class="tool">
+                    <input id="picker-tool" type="radio" name="tool">
+                    <label for="picker-tool" v-bind:title="lang.picker[language] + ' (k)'"
+                        v-on:click="changeTool('picker')"></label>
+                </div>
+                <div class="tool">
+                    <input id="background-tool" type="checkbox" v-model="drawBackground">
+                    <label for="background-tool" v-bind:title="lang.background[language]"></label>
+                </div>
+                <div class="tool">
+                    <input id="grid-tool" type="checkbox" v-model="drawGrid">
+                    <label for="grid-tool" v-bind:title="lang.grid[language]"></label>
+                </div>
             </div>
 
         </div>
         <div id="canvas"></div>
-        <div id="palette">Palette</div>
+        <div id="palette">
+            <div id="colorPicker">
+                <input type="color" v-model="baseColor">
+                <div id="alpha">
+                    {{ lang.a[language] }} : <input type="number" min="0" max="255" step="1" v-model="alpha">
+                </div><input type="range" min="0" max="255" step="1" v-model="alpha">
+
+                <div id="colorPreview"> <span> {{color}} </span> <span id="colorPreviewPatch"> </span> </div>
+            </div>
+            <div id="currentColors">
+
+                <div v-for="(color, index) in currentColors" :style="{'box-shadow': 'inset 0 0 0 1000px ' + color}"
+                    v-on:click="setColor(color)">
+                </div>
+
+            </div>
+            <div id="savedColors">
+                <div v-for="(color, index) in savedColors" :style="{'box-shadow': 'inset 0 0 0 1000px ' + color}"
+                    v-on:click="setColor(color)">
+
+                    <div class="remove" v-on:click="removeColor(index)">&times;</div>
+                </div>
+                <div v-on:click="saveColor"> + </div>
+            </div>
+
+        </div>
     </div>
 
 </body>

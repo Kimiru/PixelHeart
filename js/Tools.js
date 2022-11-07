@@ -1,3 +1,4 @@
+import ColorPickerCommand from "./Commands/ColorPickerCommand.js";
 import EraserCommand from "./Commands/EraserCommand.js";
 import LineCommand from "./Commands/LineCommand.js";
 import MoveCommand from "./Commands/MoveCommand.js";
@@ -13,7 +14,7 @@ export default {
     select: SelectCommand,
     move: MoveCommand,
     eraser: EraserCommand,
-    picker: 6,
+    picker: ColorPickerCommand,
     bucket: 7,
     magic_bucket: 8
 
