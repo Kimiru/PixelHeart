@@ -1,0 +1,59 @@
+#pen-tool+label {
+    background: url('../res/images/Pen_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#eraser-tool+label {
+    background: url('../res/images/Eraser_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#line-tool+label {
+    background: url('../res/images/Line_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#rectangle-tool+label {
+    background: url('../res/images/Rectangle_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#select-tool+label {
+    background: url('../res/images/Select_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#move-tool+label {
+    background: url('../res/images/Move_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#undo-tool {
+    background: url('../res/images/Undo_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#zoomin-tool {
+    background: url('../res/images/Zoomin_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#zoomout-tool {
+    background: url('../res/images/Zoomout_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#resize-tool {
+    background: url('../res/images/Resize_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}

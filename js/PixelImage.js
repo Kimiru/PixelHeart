@@ -63,6 +63,12 @@ export default class PixelImage extends GameObject {
 
     }
 
+    setSize(width, height) {
+
+        this.calcs.forEach(calc => calc.setSize(width, height))
+
+    }
+
     undo() {
 
         if (this.commands.length > 1) {
@@ -159,6 +165,20 @@ export default class PixelImage extends GameObject {
         colorSet.delete('#00000000')
 
         return [...colorSet]
+
+    }
+
+    merge() {
+
+        let im = new ImageManipulator(this.width, this.height)
+
+        for (let calc of this.calcs) {
+
+            im.ctx.drawImage(calc.canvas, 0, 0)
+
+        }
+
+        return im
 
     }
 

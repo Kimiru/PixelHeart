@@ -1,7 +1,9 @@
 import lang from '../res/json/lang.js'
 import tools from './Tools.js'
-import { GameEngine, range } from '../2DGameEngine/js/2DGameEngine.js'
+import { GameEngine, ImageManipulator, range } from '../2DGameEngine/js/2DGameEngine.js'
 import { PixelHeartScene } from './PixelHeart.js'
+import ResizeCommand from './Commands/ResizeCommand.js'
+import OpenCommand from './Commands/OpenCommand.js'
 
 const rem = 16
 
@@ -24,7 +26,6 @@ const vm = Vue.createApp({
             lang,
             tool: tools.pen,
             tools,
-            imageSize: { width: 32, height: 32 },
             color: '#000000ff',
             baseColor: '#000000',
             alpha: 255,
@@ -32,7 +33,14 @@ const vm = Vue.createApp({
             drawBackground: true,
             drawGrid: true,
             currentColors: [],
-            savedColors: []
+            savedColors: [],
+
+            displayResize: false,
+            nextWidth: 32,
+            nextHeight: 32,
+
+            displayFiles: false,
+            fileEvent: null
         }
     },
     methods: {
@@ -84,6 +92,41 @@ const vm = Vue.createApp({
 
             this.savedColors = this.savedColors.filter((_, i) => i != index)
 
+        },
+        download: function () {
+
+            let name = prompt(lang.givename[this.language])
+            if (name === null) return
+            if (name === '') name = 'PixelHeart'
+
+            engine.scene.getTags('image')[0].image.merge().download(name)
+
+        },
+        resize: function () {
+
+            let command = new ResizeCommand(this.nextWidth, this.nextHeight)
+            let image = engine.scene.getTags('image')[0].image
+            image.addCommand(command)
+
+        },
+        fileChange: function (e) {
+
+            let image = new Image()
+            image.onload = () => {
+
+                let imageManipulator = new ImageManipulator(image.width, image.height)
+                imageManipulator.ctx.drawImage(image, 0, 0)
+
+
+                let command = new OpenCommand(imageManipulator)
+                image = engine.scene.getTags('image')[0].image
+                image.addCommand(command)
+
+                this.displayFiles = false
+
+            }
+            image.src = URL.createObjectURL(e.target.files[0])
+
         }
 
     },
@@ -127,4 +170,45 @@ window.addEventListener('resize', () => {
     engine.resize(minDimension(), minDimension())
 })
 
+window.addEventListener('beforeunload', () => {
+
+    let image = engine.scene.getTags('image')[0].image
+
+    let im = image.merge()
+
+    localStorage.setItem('previousWork', im.print())
+
+    localStorage.setItem('language', vm.language)
+
+})
+
 document.querySelector('#canvas').replaceWith(engine.canvas)
+
+let language = localStorage.getItem('language')
+if (language) vm.language = language
+
+let source = localStorage.getItem('previousWork')
+
+if (source) {
+
+
+    let image = new Image()
+    image.onload = () => {
+
+        let imageManipulator = new ImageManipulator(image.width, image.height)
+
+        if (imageManipulator.print() != source)
+
+            if (confirm(lang.restore[vm.language])) {
+
+                imageManipulator.ctx.drawImage(image, 0, 0)
+                let command = new OpenCommand(imageManipulator)
+                image = engine.scene.getTags('image')[0].image
+                image.addCommand(command)
+
+            }
+    }
+    image.src = source
+
+}
+

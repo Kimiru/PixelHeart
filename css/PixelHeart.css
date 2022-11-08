@@ -237,3 +237,71 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+
+
+#resize {
+
+    position: absolute;
+
+    width: 10rem;
+    height: fit-content;
+
+    background: white;
+    border: 4px solid black;
+    border-radius: .5rem;
+    padding: .5rem;
+
+
+}
+
+#resize input[type=number] {
+
+    border: none;
+    border-bottom: 2px solid black;
+    width: 4rem;
+
+}
+
+#resize>div:last-child {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: .5rem;
+
+    margin-top: .5rem;
+
+}
+
+
+#files {
+
+    position: absolute;
+
+    width: 30rem;
+    height: 10rem;
+    height: fit-content;
+
+    background: white;
+    border: 4px solid black;
+    border-radius: .5rem;
+    padding: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+
+}
+
+#files>* {
+
+    display: block;
+    width: fit-content;
+
+    text-align: center;
+
+}

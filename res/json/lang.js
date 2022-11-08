@@ -56,6 +56,48 @@ export default {
         fr: 'Afficher fond',
         en: 'Display background',
     },
+    download: {
+        fr: 'Télécharger l\'image',
+        en: 'Download the image',
+    },
+    givename: {
+        fr: 'Donnez un nom à votre image:',
+        en: 'Give a name to your image:',
+    },
+    resize: {
+        fr: 'Redimensionner',
+        en: 'Resize'
+    },
+
+    width: {
+        fr: 'Largeur',
+        en: 'Width'
+    },
+    height: {
+        fr: 'Hauteur',
+        en: 'Height'
+    },
+    ok: {
+        fr: 'Valider',
+        en: 'Confirm',
+    },
+    ko: {
+        fr: 'Annuler',
+        en: 'Cancel',
+    },
+
+    files: {
+        fr: 'Fichiers',
+        en: 'Files',
+    },
+    open: {
+        fr: 'Ouvrir',
+        en: 'Open',
+    },
+    close: {
+        fr: 'Fermer',
+        en: 'Close',
+    },
 
 
     r: {
@@ -73,5 +115,11 @@ export default {
     a: {
         fr: 'Alpha',
         en: 'Alpha',
+    },
+
+
+    restore: {
+        fr: 'Une image de votre précédent passage à été sauvegardé, voulez-vous l\'utiliser',
+        en: 'An image of you previous visit has been saved, do you want to use it?',
     },
 }

@@ -8,6 +8,7 @@
     <title>PixelHeart</title>
 
     <link rel="stylesheet" href="./css/PixelHeart.css">
+    <link rel="stylesheet" href="./css/ToolsImages.css">
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="./js/main.js" type="module" defer></script>
@@ -61,19 +62,29 @@
 
             <div>
                 <div class="tool">
-                    <label v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
+                    <label id="undo-tool" v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
                 </div>
                 <div class="tool">
-                    <label v-bind:title="lang.redo[language] + ' (ctrl+y)'" v-on:click="redo"></label>
+                    <label id="redo-tool" v-bind:title="lang.redo[language] + ' (ctrl+y)'" v-on:click="redo"></label>
                 </div>
             </div>
 
             <div>
                 <div class="tool">
-                    <label v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
+                    <label id="zoomin-tool" v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
                 </div>
                 <div class="tool">
-                    <label v-bind:title="lang.zoomout[language]" v-on:click="zoom(-1)"></label>
+                    <label id="zoomout-tool" v-bind:title="lang.zoomout[language]" v-on:click="zoom(-1)"></label>
+                </div>
+            </div>
+
+            <div>
+                <div class="tool">
+                    <label v-bind:title="lang.files[language]" v-on:click="displayFiles=true"></label>
+                </div>
+                <div class="tool">
+                    <label id="resize-tool" v-bind:title="lang.resize[language]"
+                        v-on:click="displayResize=true"></label>
                 </div>
             </div>
 
@@ -120,6 +131,23 @@
                 <div v-on:click="saveColor"> + </div>
             </div>
 
+        </div>
+        <div id="resize" :style="{'display': displayResize?'block':'none'}">
+
+            <div> <span>{{ lang.width[language] }}</span> : <input type="number" min="1" v-model="nextWidth"> </div>
+            <div> <span>{{ lang.height[language] }}</span> : <input type="number" min="1" v-model="nextHeight"> </div>
+
+            <div>
+                <button v-on:click="displayResize=false"> {{ lang.ko[language] }} </button>
+                <button v-on:click="displayResize=false; resize()"> {{ lang.ok[language] }} </button>
+            </div>
+        </div>
+        <div id="files" :style="{'display': displayFiles?'flex':'none'}">
+
+            <div> <input type="file" v-on:change="fileChange"> </div>
+
+            <button v-on:click="download"> {{ lang.download[language] }} </button>
+            <button v-on:click="displayFiles=false"> {{ lang.close[language] }} </button>
         </div>
     </div>
 

@@ -44,7 +44,7 @@ class PixelHeartImage extends GameObject {
 
         for (let layer of this.layers) {
 
-            layer.setSize(this.vm.imageSize.width, this.vm.imageSize.height)
+            layer.setSize(this.image.width, this.image.height)
 
         }
 
@@ -55,7 +55,7 @@ class PixelHeartImage extends GameObject {
         position = position.clone()
 
         position.y *= -1
-        position.addS(this.vm.imageSize.width / 2, this.vm.imageSize.height / 2)
+        position.addS(this.image.width / 2, this.image.height / 2)
         position.floor()
 
         return position
@@ -124,6 +124,18 @@ class PixelHeartImage extends GameObject {
         else if (input.isCharPressed('m')) this.vm.changeTool('move')
         else if (input.isCharPressed('s')) this.vm.changeTool('select')
         else if (input.isCharPressed('k')) this.vm.changeTool('picker')
+        else if (input.isCharPressed('a')) {
+
+            let w = this.image.width
+            let h = this.image.height
+            let x = w / 2 - .5
+            let y = h / 2 - .5
+
+            SelectCommand.selectionRectangle = new Rectangle(x, y, w, h)
+
+            this.vm.changeTool('move')
+
+        }
 
         this.move()
 
@@ -131,6 +143,8 @@ class PixelHeartImage extends GameObject {
 
     move() {
         let input = this.engine.input
+
+        if (this.vm.displayResize || this.vm.displayFiles) return
 
         if (input.isPressed('ArrowLeft')) {
             this.scene.camera.transform.translation.x--
