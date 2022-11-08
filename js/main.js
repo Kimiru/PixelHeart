@@ -177,8 +177,8 @@ window.addEventListener('beforeunload', () => {
     let im = image.merge()
 
     localStorage.setItem('previousWork', im.print())
-
     localStorage.setItem('language', vm.language)
+    localStorage.setItem('savedColors', JSON.stringify(vm.savedColors))
 
 })
 
@@ -187,8 +187,12 @@ document.querySelector('#canvas').replaceWith(engine.canvas)
 let language = localStorage.getItem('language')
 if (language) vm.language = language
 
-let source = localStorage.getItem('previousWork')
+let savedColors = localStorage.getItem('savedColors')
+if (savedColors) {
+    vm.savedColors = JSON.parse(savedColors)
+}
 
+let source = localStorage.getItem('previousWork')
 if (source) {
 
 
