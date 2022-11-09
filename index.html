@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="./css/PixelHeart.css">
     <link rel="stylesheet" href="./css/ToolsImages.css">
+    <link rel="stylesheet" href="./css/Flags.css">
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="./js/main.js" type="module" defer></script>
@@ -117,18 +118,19 @@
             </div>
             <div id="currentColors">
 
-                <div v-for="(color, index) in currentColors" :style="{'box-shadow': 'inset 0 0 0 1000px ' + color}"
-                    v-on:click="setColor(color)">
+                <div v-for="(color, index) in currentColors" v-bind:title="color"
+                    :style="{'box-shadow': 'inset 0 0 0 1000px ' + color}" v-on:click="setColor(color)">
                 </div>
 
             </div>
             <div id="savedColors">
-                <div v-for="(color, index) in savedColors" :style="{'box-shadow': 'inset 0 0 0 1000px ' + color}"
-                    v-on:click="setColor(color)">
+                <div v-for="(color, index) in savedColors" v-bind:title="color"
+                    :style="{'box-shadow': 'inset 0 0 0 1000px ' + color}" v-on:click="setColor(color)">
 
                     <div class="remove" v-on:click="removeColor(index)">&times;</div>
                 </div>
-                <div v-on:click="saveColor"> + </div>
+                <div v-on:click="saveColor" v-bind:title="lang.savecolor[language]"> +
+                </div>
             </div>
 
         </div>
@@ -148,6 +150,15 @@
 
             <button v-on:click="download"> {{ lang.download[language] }} </button>
             <button v-on:click="displayFiles=false"> {{ lang.close[language] }} </button>
+        </div>
+
+        <div id="flags">
+
+            <div class="flag" id="french" v-bind:current="language==='fr'" v-on:click="language='fr'"></div>
+            <div class="flag" id="uk" v-bind:current="language==='en'" v-on:click="language='en'"></div>
+            <div class="flag" id="tokipona" v-bind:current="language==='tokipona'" v-on:click="language='tokipona'">
+            </div>
+
         </div>
     </div>
 

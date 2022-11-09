@@ -1,0 +1,56 @@
+#flags {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    padding: .5rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+
+}
+
+.flag {
+    background-size: cover;
+    image-rendering: pixelated;
+
+    cursor: pointer;
+    border: 2px solid white;
+    box-sizing: border-box;
+
+}
+
+.flag[current=true] {
+
+    border: 2px solid lime;
+
+}
+
+#french {
+
+    width: 3rem;
+    height: 2rem;
+
+    background-image: url('../res/images/French_flag_3x2.png');
+
+}
+
+#uk {
+
+    width: 3.3rem;
+    height: 2rem;
+
+    background-image: url('../res/images/UK_flag_55x33.png');
+
+}
+
+#tokipona {
+
+    width: 3.3rem;
+    height: 2rem;
+
+    background-image: url('../res/images/tokipona_flag_39x26.png');
+
+}

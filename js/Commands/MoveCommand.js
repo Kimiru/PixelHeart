@@ -32,8 +32,6 @@ export default class MoveCommand extends Command {
 
         let calc = pixelImage.calcs[this.layerNumber]
 
-        console.log(this.source.bottomleft)
-
         calc.ctx.clearRect(this.source.left, this.source.bottom, this.source.w, this.source.h)
         calc.ctx.clearRect(this.source.left + this.offset.x, this.source.bottom + this.offset.y, this.source.w, this.source.h)
 
