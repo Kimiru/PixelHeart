@@ -1,22 +1,22 @@
 Image:
-    - Resize
+    - Resize: @done
 
 File:
-    - Save
-    - Open
-    - Export (with calcs)
-    - Import (with calcs)
+    - Save into browser
+    - Open from browser
+    - Open: @done
+    - Download: @done
 
 Painting:
     - Pen: @done
-    - Bucket
+    - Bucket: @done
     - Line: @done
     - Rectangle: @done
     - Color picker: @done
     - Move: @done
         - If selection, move selection: @done
     - Eraser: @done
-    - Magic bucket
+    - Magic wand: @done
     - Copy/Paste
     - Rectangle Selection: @done
 
@@ -25,7 +25,7 @@ Visuals: @done
     - Wire grid: @done
     - Zoom in&out BUTTONS: @done
 
-Layers:
+Layers: @tbd
     - Layers Selection
     - Selection Layer
     - Switch layers position
@@ -37,15 +37,13 @@ Transformation:
     - Flip V/H
     - Rotate 90°
 
-Colors:
-    - Hex input
-    - RGB input
-    - HSV input/selector
-    - Colors storage
-    - Extract color from image
-    - Save color into custom palette
-    - Save custom palette into navigator
+Colors: @done
+    - View current Colors: @done
+    - Extract color from image: @done
+    - Save color into custom palette: @done
+    - Save custom palette into navigator: @done
 
 Langfiles:
-    - Français
-    - English
+    - Français: @done
+    - English: @done
+    - toki pona: @done
