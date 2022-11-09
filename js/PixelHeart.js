@@ -133,7 +133,7 @@ class PixelHeartImage extends GameObject {
 
             SelectCommand.selectionRectangle = new Rectangle(x, y, w, h)
 
-            this.vm.changeTool('move')
+            this.vm.changeTool('select')
 
         }
         else if (SelectCommand.selectionRectangle) {

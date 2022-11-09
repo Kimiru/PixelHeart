@@ -40,6 +40,12 @@
     image-rendering: pixelated;
 }
 
+#redo-tool {
+    background: url('../res/images/Redo_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
 #zoomin-tool {
     background: url('../res/images/Zoomin_18x18.png');
     background-size: cover;
@@ -54,6 +60,18 @@
 
 #resize-tool {
     background: url('../res/images/Resize_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#grid-tool+label {
+    background: url('../res/images/Grid_19x19.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#background-tool+label {
+    background: url('../res/images/Background_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
