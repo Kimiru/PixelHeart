@@ -94,6 +94,8 @@ export default class MoveCommand extends Command {
                 SelectCommand.selectionRectangle.y++
             }
 
+            this.baking.ctx.clearRect(this.source.left, this.source.bottom,
+                this.source.w, this.source.h)
             this.baking.ctx.drawImage(image.activeCalc.canvas,
                 this.source.left, this.source.bottom,
                 this.source.w, this.source.h,

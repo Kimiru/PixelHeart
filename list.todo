@@ -12,7 +12,7 @@ Painting:
     - Bucket
     - Line: @done
     - Rectangle: @done
-    - Color picker
+    - Color picker: @done
     - Move: @done
         - If selection, move selection: @done
     - Eraser: @done

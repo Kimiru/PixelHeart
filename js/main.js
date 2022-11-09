@@ -151,7 +151,7 @@ document.querySelector('#colorPreviewPatch').style.backgroundColor = vm.color
 // Engine
 
 function minDimension() {
-    return Math.min(innerWidth - 20 * rem, innerHeight) * .8
+    return Math.min(innerWidth - 30 * rem, innerHeight) * .9
 }
 
 
@@ -195,13 +195,12 @@ if (savedColors) {
 let source = localStorage.getItem('previousWork')
 if (source) {
 
-
     let image = new Image()
     image.onload = () => {
 
         let imageManipulator = new ImageManipulator(image.width, image.height)
 
-        if (imageManipulator.print() != source)
+        if (imageManipulator.print() !== source)
 
             if (confirm(lang.restore[vm.language])) {
 
