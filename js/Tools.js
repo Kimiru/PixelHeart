@@ -1,6 +1,8 @@
+import BucketCommand from "./Commands/BucketCommand.js";
 import ColorPickerCommand from "./Commands/ColorPickerCommand.js";
 import EraserCommand from "./Commands/EraserCommand.js";
 import LineCommand from "./Commands/LineCommand.js";
+import MagicWandCommand from "./Commands/MagicWandCommand.js";
 import MoveCommand from "./Commands/MoveCommand.js";
 import PenCommand from "./Commands/PenCommand.js";
 import RectangleCommand from "./Commands/RectangleCommand.js";
@@ -15,7 +17,7 @@ export default {
     move: MoveCommand,
     eraser: EraserCommand,
     picker: ColorPickerCommand,
-    bucket: 7,
-    magic_bucket: 8
+    bucket: BucketCommand,
+    magic_bucket: MagicWandCommand
 
 }

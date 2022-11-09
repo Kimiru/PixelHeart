@@ -136,6 +136,8 @@ class PixelHeartImage extends GameObject {
             this.vm.changeTool('select')
 
         }
+        else if (input.isCharPressed('b')) this.vm.changeTool('bucket')
+        else if (input.isCharPressed('w')) this.vm.changeTool('magic_bucket')
         else if (SelectCommand.selectionRectangle) {
 
             if (input.isCharPressed('f')) {

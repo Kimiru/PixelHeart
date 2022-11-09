@@ -63,6 +63,20 @@
 
             <div>
                 <div class="tool">
+                    <input id="bucket-tool" type="radio" name="tool">
+                    <label for="bucket-tool" v-bind:title="lang.bucket[language] + ' (s)'"
+                        v-on:click="changeTool('bucket')"></label>
+                </div>
+                <div class="tool">
+                    <input id="magic_bucket-tool" type="radio" name="tool">
+                    <label for="magic_bucket-tool" v-bind:title="lang.magic_bucket[language] + ' (m)'"
+                        v-on:click="changeTool('magic_bucket')"></label>
+                </div>
+
+            </div>
+
+            <div>
+                <div class="tool">
                     <label id="undo-tool" v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
                 </div>
                 <div class="tool">

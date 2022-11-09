@@ -64,6 +64,16 @@ export default {
         en: 'Eyedropper',
         tokipona: 'ilo pi alasa pi kule',
     },
+    bucket: {
+        fr: 'Seau',
+        en: 'Bucket',
+        tokipona: 'poki telo',
+    },
+    magic_bucket: {
+        fr: 'Baguette magique',
+        en: 'Magic wand',
+        tokipona: 'palisa usawi',
+    },
     background: {
         fr: 'Afficher fond',
         en: 'Display background',
