@@ -136,6 +136,38 @@ class PixelHeartImage extends GameObject {
             this.vm.changeTool('move')
 
         }
+        else if (SelectCommand.selectionRectangle) {
+
+            if (input.isCharPressed('f')) {
+
+                let imageManipulator = new ImageManipulator(this.image.width, this.image.height)
+
+                let source = SelectCommand.selectionRectangle.clone()
+                source.transform.translation.addS(.5, .5)
+                imageManipulator.ctx.fillStyle = this.vm.color
+                imageManipulator.ctx.fillRect(source.left, source.bottom, source.w, source.h)
+                let offset = new Vector(0, 0)
+
+                let command = new MoveCommand(imageManipulator, source, offset, this.image.activeCalcNumber)
+                this.image.addCommand(command)
+
+            }
+            if (input.isPressed('Delete')) {
+
+                let imageManipulator = new ImageManipulator(this.image.width, this.image.height)
+
+                let source = SelectCommand.selectionRectangle.clone()
+                source.transform.translation.addS(.5, .5)
+                let offset = new Vector(0, 0)
+
+                let command = new MoveCommand(imageManipulator, source, offset, this.image.activeCalcNumber)
+                this.image.addCommand(command)
+
+                SelectCommand.selectionRectangle = null
+
+            }
+
+        }
 
         this.move()
 
