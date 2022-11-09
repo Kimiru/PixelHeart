@@ -75,3 +75,15 @@
     background-size: cover;
     image-rendering: pixelated;
 }
+
+#bucket-tool+label {
+    background: url('../res/images/Bucket_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+#magic_bucket-tool+label {
+    background: url('../res/images/Wand_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}

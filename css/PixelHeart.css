@@ -15,6 +15,10 @@ body {
 
 }
 
+canvas {
+    border-radius: 1rem;
+}
+
 * {
     vertical-align: middle;
     font-family: sans-serif;

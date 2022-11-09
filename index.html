@@ -77,6 +77,14 @@
 
             <div>
                 <div class="tool">
+                    <input id="picker-tool" type="radio" name="tool">
+                    <label for="picker-tool" v-bind:title="lang.picker[language] + ' (k)'"
+                        v-on:click="changeTool('picker')"></label>
+                </div>
+            </div>
+
+            <div>
+                <div class="tool">
                     <label id="undo-tool" v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
                 </div>
                 <div class="tool">
@@ -104,11 +112,7 @@
             </div>
 
             <div>
-                <div class="tool">
-                    <input id="picker-tool" type="radio" name="tool">
-                    <label for="picker-tool" v-bind:title="lang.picker[language] + ' (k)'"
-                        v-on:click="changeTool('picker')"></label>
-                </div>
+
                 <div class="tool">
                     <input id="background-tool" type="checkbox" v-model="drawBackground">
                     <label for="background-tool" v-bind:title="lang.background[language]"></label>
