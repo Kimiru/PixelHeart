@@ -121,30 +121,12 @@ export default {
         en: 'Files',
         tokipona: 'lipu mute'
     },
-    open: {
-        fr: 'Ouvrir',
-        en: 'Open',
-        tokipona: 'open',
-    },
     close: {
         fr: 'Fermer',
         en: 'Close',
         tokipona: 'pini'
     },
 
-
-    r: {
-        fr: 'R',
-        en: 'R',
-    },
-    g: {
-        fr: 'V',
-        en: 'G',
-    },
-    b: {
-        fr: 'B',
-        en: 'B',
-    },
     a: {
         fr: 'Alpha',
         en: 'Alpha',
@@ -161,5 +143,12 @@ export default {
         fr: 'Sauvegarder la couleur actuelle',
         en: 'Save the current color',
         tokipona: 'kule lon li awen'
-    }
+    },
+
+    open: {
+        fr: 'Ouvrir une image',
+        en: 'Open an image',
+        tokipona: 'open e sitelen',
+    },
+
 }

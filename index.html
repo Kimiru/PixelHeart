@@ -81,6 +81,10 @@
                     <label for="picker-tool" v-bind:title="lang.picker[language] + ' (k)'"
                         v-on:click="changeTool('picker')"></label>
                 </div>
+                <div class="tool">
+                    <label id="resize-tool" v-bind:title="lang.resize[language] + ' (lshift+r)'"
+                        v-on:click="displayResize=true"></label>
+                </div>
             </div>
 
             <div>
@@ -101,15 +105,7 @@
                 </div>
             </div>
 
-            <div>
-                <div class="tool">
-                    <label v-bind:title="lang.files[language]" v-on:click="displayFiles=true"></label>
-                </div>
-                <div class="tool">
-                    <label id="resize-tool" v-bind:title="lang.resize[language] + ' (lshift+r)'"
-                        v-on:click="displayResize=true"></label>
-                </div>
-            </div>
+
 
             <div>
 
@@ -121,6 +117,13 @@
                     <input id="grid-tool" type="checkbox" v-model="drawGrid">
                     <label for="grid-tool" v-bind:title="lang.grid[language]"></label>
                 </div>
+            </div>
+
+            <div>
+                <div class="tool">
+                    <label v-bind:title="lang.files[language]" v-on:click="displayFiles=true"></label>
+                </div>
+
             </div>
 
         </div>
@@ -172,10 +175,17 @@
         </div>
         <div id="files" :style="{'display': displayFiles?'flex':'none'}">
 
-            <div> <input type="file" v-on:change="fileChange"> </div>
+            <div>
+                <input id="openfileinput" type="file" style="display: none;" v-on:change="fileChange">
+                <button onclick="document.querySelector('#openfileinput').click()"> {{lang.open[language]}}
+                </button>
+            </div>
 
-            <button v-on:click="download"> {{ lang.download[language] }} </button>
+            <div>
+                <button v-on:click="download"> {{ lang.download[language] }} </button>
+            </div>
             <button v-on:click="displayFiles=false"> {{ lang.close[language] }} </button>
+
         </div>
 
         <div id="flags">
