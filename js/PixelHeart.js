@@ -99,7 +99,7 @@ class PixelHeartImage extends GameObject {
 
     zoom(value = 1) {
 
-        let scale = Math.min(1, this.scene.camera.transform.scale.x * (1 - value * .1))
+        let scale = Math.min(10, this.scene.camera.transform.scale.x * (1 - value * .1))
 
         this.scene.camera.transform.scale.set(scale, scale)
 
@@ -115,6 +115,8 @@ class PixelHeartImage extends GameObject {
             else if (input.isPressed('ArrowUp')) this.zoom(1)
             else if (input.isPressed('ArrowDown')) this.zoom(-1)
         }
+
+        else if (input.isCharPressed('R')) this.vm.displayResize = true
 
         // Change tools
         else if (input.isCharPressed('p')) this.vm.changeTool('pen')

@@ -87,3 +87,9 @@
     background-size: cover;
     image-rendering: pixelated;
 }
+
+#picker-tool+label {
+    background: url('../res/images/EyeDropper_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}

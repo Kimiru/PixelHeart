@@ -69,7 +69,7 @@
                 </div>
                 <div class="tool">
                     <input id="magic_bucket-tool" type="radio" name="tool">
-                    <label for="magic_bucket-tool" v-bind:title="lang.magic_bucket[language] + ' (m)'"
+                    <label for="magic_bucket-tool" v-bind:title="lang.magic_bucket[language] + ' (w)'"
                         v-on:click="changeTool('magic_bucket')"></label>
                 </div>
 
@@ -85,10 +85,10 @@
 
             <div>
                 <div class="tool">
-                    <label id="undo-tool" v-bind:title="lang.undo[language] + ' (ctrl+z)'" v-on:click="undo"></label>
+                    <label id="undo-tool" v-bind:title="lang.undo[language] + ' (lctrl+z)'" v-on:click="undo"></label>
                 </div>
                 <div class="tool">
-                    <label id="redo-tool" v-bind:title="lang.redo[language] + ' (ctrl+y)'" v-on:click="redo"></label>
+                    <label id="redo-tool" v-bind:title="lang.redo[language] + ' (lctrl+y)'" v-on:click="redo"></label>
                 </div>
             </div>
 
@@ -106,7 +106,7 @@
                     <label v-bind:title="lang.files[language]" v-on:click="displayFiles=true"></label>
                 </div>
                 <div class="tool">
-                    <label id="resize-tool" v-bind:title="lang.resize[language]"
+                    <label id="resize-tool" v-bind:title="lang.resize[language] + ' (lshift+r)'"
                         v-on:click="displayResize=true"></label>
                 </div>
             </div>
@@ -154,8 +154,16 @@
         </div>
         <div id="resize" :style="{'display': displayResize?'block':'none'}">
 
-            <div> <span>{{ lang.width[language] }}</span> : <input type="number" min="1" v-model="nextWidth"> </div>
-            <div> <span>{{ lang.height[language] }}</span> : <input type="number" min="1" v-model="nextHeight"> </div>
+            <div>
+                <span>{{ lang.width[language] }}</span>
+                :
+                <input type="number" min="1" v-model="nextWidth" v-on:keyup.enter="displayResize=false; resize()">
+            </div>
+            <div>
+                <span>{{ lang.height[language] }}</span>
+                :
+                <input type="number" min="1" v-model="nextHeight" v-on:keyup.enter="displayResize=false; resize()">
+            </div>
 
             <div>
                 <button v-on:click="displayResize=false"> {{ lang.ko[language] }} </button>

@@ -45,14 +45,14 @@ export default {
         tokipona: 'tawa pini'
     },
     zoomin: {
-        fr: 'Zoomer  (ctrl+haut)',
-        en: 'Zoom in  (ctrl+up)',
-        tokipona: 'pali suli',
+        fr: 'Zoomer  (lctrl+haut)',
+        en: 'Zoom in  (lctrl+up)',
+        tokipona: 'pali suli (lctrl+sewi)',
     },
     zoomout: {
-        fr: 'Dézoomer  (ctrl+bas)',
-        en: 'Zoom out  (ctrl+down)',
-        tokipona: 'pali lili',
+        fr: 'Dézoomer  (lctrl+bas)',
+        en: 'Zoom out  (lctrl+down)',
+        tokipona: 'pali lili (lctrl+anpa)',
     },
     grid: {
         fr: 'Afficher la grille',
