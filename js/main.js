@@ -10,7 +10,7 @@ const rem = 16
 
 if ('serviceWorker' in navigator)
     navigator.serviceWorker.register('serviceWorker.js')
-        .then((reg) => { console.log('Service worker registered', reg) })
+        .then((reg) => { console.log('Service worker registered') })
         .catch((err) => { console.log('Service worker did not register', err) })
 
 // Vue.js
