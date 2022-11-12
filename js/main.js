@@ -7,6 +7,12 @@ import OpenCommand from './Commands/OpenCommand.js'
 
 const rem = 16
 
+
+if ('serviceWorker' in navigator)
+    navigator.serviceWorker.register('serviceWorker.js')
+        .then((reg) => { console.log('Service worker registered', reg) })
+        .catch((err) => { console.log('Service worker did not register', err) })
+
 // Vue.js
 
 function updateColor() {
