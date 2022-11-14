@@ -1,0 +1,186 @@
+#files {
+
+    position: absolute;
+
+    width: auto;
+    height: 10rem;
+    height: fit-content;
+
+    padding: .5rem;
+
+    display: grid;
+    grid-template-areas:
+        'files files'
+        'open download';
+
+
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    box-sizing: border-box;
+
+}
+
+#files>* {
+
+    display: block;
+    width: fit-content;
+
+    text-align: center;
+
+}
+
+#localStorage {
+
+    grid-area: files;
+
+    display: flex;
+
+    flex-direction: column;
+
+    border: 4px solid black;
+    border-radius: .5rem;
+
+    padding: .5rem;
+    width: 30rem;
+    background-color: white;
+
+}
+
+#storedFiles {
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: left;
+    align-content: center;
+    gap: .5rem;
+
+    text-align: left;
+
+    margin: 1rem;
+
+}
+
+#storedFiles .storedFile {
+
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+
+    border-left: 2px solid black;
+
+    padding-left: .2rem;
+
+
+}
+
+
+#storedFiles .storedFile img {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    image-rendering: pixelated;
+    transition: .25s;
+}
+
+#storedFiles .storedFile img:hover {
+
+    cursor: pointer;
+
+    height: 5rem;
+    width: 5rem;
+
+}
+
+#localStorage>:last-child {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: .3rem;
+
+}
+
+#openFileButton {
+
+    grid-area: open;
+    width: 100%;
+
+}
+
+#openFileButton button, #downloadButton button {
+
+    display: inline-block;
+    width: 100%;
+    border: 4px solid black;
+    background-color: white;
+    border-radius: .5rem;
+    padding: .5rem;
+    cursor: pointer;
+
+}
+
+#openFileButton button:hover, #downloadButton button:hover {
+
+    background-color: lightgray;
+
+}
+
+#downloadButton {
+
+    grid-area: download;
+    width: 100%;
+
+}
+
+#openAndDownloadFile {
+
+    display: flex;
+
+    width: 100%;
+    gap: .5rem;
+
+}
+
+#openAndDownloadFile>* {
+
+    border: 4px solid black;
+    background-color: white;
+    padding: .5rem;
+
+}
+
+#closeButton {
+
+    position: absolute;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    right: -1rem;
+    top: -1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 3rem;
+
+    border: 4px solid black;
+
+    cursor: pointer;
+    font-size: 2rem;
+
+
+    background-color: white;
+
+
+}
+
+#closeButton:hover {
+
+    background-color: lightgray;
+
+}

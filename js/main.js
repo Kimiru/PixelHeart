@@ -46,7 +46,9 @@ const vm = Vue.createApp({
             nextHeight: 32,
 
             displayFiles: false,
-            fileEvent: null
+            fileEvent: null,
+
+            localStorageFiles: JSON.parse(localStorage.getItem('storedImages')) ?? {}
         }
     },
     methods: {
@@ -132,6 +134,69 @@ const vm = Vue.createApp({
 
             }
             image.src = URL.createObjectURL(e.target.files[0])
+
+        },
+
+        saveCanvasIntoLocalStorage() {
+
+            let filename = document.querySelector('#inputFileName').value
+
+            if (filename === '') {
+                alert(lang.localStorage.noname[vm.language])
+                return
+            }
+            if (vm.localStorageFiles[filename] && !confirm(lang.localStorage.already[vm.language])) return
+
+            let base64 = engine.scene.getTags('image')[0].image.merge().print()
+
+            vm.localStorageFiles[filename] = base64
+
+            localStorage.setItem('storedImages', JSON.stringify(vm.localStorageFiles))
+
+        },
+
+        useStoredImage(key) {
+
+            let source = new Image()
+            source.onload = () => {
+
+                let image = engine.scene.getTags('image')[0]
+
+                let imageManipulator = new ImageManipulator(source.width, source.height)
+
+                imageManipulator.ctx.drawImage(source, 0, 0)
+                let command = new OpenCommand(imageManipulator)
+                image = engine.scene.getTags('image')[0].image
+                image.addCommand(command)
+
+                vm.displayFiles = false
+            }
+            source.src = vm.localStorageFiles[key]
+
+        },
+
+        deleteStoredImage(key) {
+
+            if (confirm(lang.localStorage.confirmDelete[vm.language])) {
+
+                delete vm.localStorageFiles[key]
+
+                localStorage.setItem('storedImages', JSON.stringify(vm.localStorageFiles))
+
+            }
+
+        },
+        downloadStoredImage(key) {
+
+            let source = new Image()
+            source.onload = () => {
+
+                let imageManipulator = new ImageManipulator(source.width, source.height)
+                imageManipulator.ctx.drawImage(source, 0, 0)
+                imageManipulator.download(key)
+
+            }
+            source.src = vm.localStorageFiles[key]
 
         }
 

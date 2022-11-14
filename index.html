@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./css/PixelHeart.css">
     <link rel="stylesheet" href="./css/ToolsImages.css">
     <link rel="stylesheet" href="./css/Flags.css">
+    <link rel="stylesheet" href="./css/Files.css">
     <link rel="shortcut icon" href="PixelHeart_16x16.png" type="image/png">
 
     <script src="https://unpkg.com/vue@next"></script>
@@ -174,19 +175,39 @@
                 <button v-on:click="displayResize=false; resize()"> {{ lang.ok[language] }} </button>
             </div>
         </div>
-        <div id="files" :style="{'display': displayFiles?'flex':'none'}">
+        <div id="files" :style="{'display': displayFiles?'grid':'none'}">
 
-            <div>
+            <div id="localStorage">
+                <div> {{ lang.localStorage.title[language] }} </div>
+                <div id="storedFiles">
+                    <div class="storedFile" v-for="(file, key) in localStorageFiles">
+                        <img :src="file">
+                        <div> {{ key }} </div>
+                        <button v-on:click="useStoredImage(key)"> {{ lang.localStorage.use[language] }}</button>
+                        <button v-on:click="downloadStoredImage(key)">
+                            {{ lang.localStorage.download[language] }}</button>
+                        <button v-on:click="deleteStoredImage(key)"> {{ lang.localStorage.delete[language] }}</button>
+                    </div>
+                </div>
+                <div>
+                    <input id="inputFileName" type="text" v-on:keyup.enter="saveCanvasIntoLocalStorage"><button
+                        v-on:click="saveCanvasIntoLocalStorage">
+                        {{ lang.localStorage.save[language] }} </button>
+                </div>
+            </div>
+
+            <div id="openFileButton">
                 <input id="openfileinput" type="file" style="display: none;" v-on:change="fileChange">
                 <button onclick="document.querySelector('#openfileinput').click()"> {{lang.open[language]}}
                 </button>
             </div>
 
-            <div>
+            <div id="downloadButton">
                 <button v-on:click="download"> {{ lang.download[language] }} </button>
             </div>
-            <button v-on:click="displayFiles=false"> {{ lang.close[language] }} </button>
 
+
+            <button id="closeButton" v-on:click="displayFiles=false"> &times; </button>
         </div>
 
         <div id="flags">

@@ -151,4 +151,57 @@ export default {
         tokipona: 'open e sitelen',
     },
 
+    localStorage: {
+
+        title: {
+            fr: 'Fichiers locaux',
+            en: 'Local files',
+            tokipona: 'lipu poka',
+        },
+
+        save: {
+            fr: 'Sauvegarder le canvas',
+            en: 'Save the canvas',
+            tokipona: 'awen e supa sitelen',
+        },
+
+        noname: {
+            fr: 'Il n\'y a aucun nom de fichier',
+            en: 'There is no file name',
+            tokipona: 'o lon ala e nimi pi lipu',
+        },
+
+        already: {
+            fr: 'Un fichier de ce nom existe déjà, voulez-vous continuer?',
+            en: 'A file with this name already exists, do you wish to continue?',
+            tokipona: 'lipu wan kepeken nimi ni li lon, sina wile ala wile awen pali?'
+        },
+
+        delete: {
+            fr: 'Supprimer',
+            en: 'Delete',
+            tokipona: 'pakala',
+        },
+
+        use: {
+            fr: 'Utiliser',
+            en: 'Use',
+            tokipona: 'kepeken',
+        },
+
+        confirmDelete: {
+            fr: 'Vous ne pourrez pas récupérer l\'image, voulez-vous continuer?',
+            en: 'You will not be able to recover the image, do you wish to continue?',
+            tokipona: 'sina kama ken ala e jo sitelen, sina wile ala wile awen pali?'
+
+        },
+
+        download: {
+            fr: 'Télécharger',
+            en: 'Download',
+            tokipona: 'jo'
+        }
+
+    }
+
 }
