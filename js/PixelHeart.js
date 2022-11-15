@@ -172,7 +172,7 @@ class PixelHeartImage extends GameObject {
             }
             if (input.isPressed('Delete')) {
 
-                let imageManipulator = new ImageManipulator(this.image.width, this.image.height)
+                let imageManipulator = new ImageManipulator(1, 1)
 
                 let source = SelectCommand.selectionRectangle.clone()
                 source.transform.translation.addS(.5, .5)
