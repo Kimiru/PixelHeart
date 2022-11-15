@@ -114,6 +114,11 @@ class PixelHeartImage extends GameObject {
             else if (input.isCharPressed('y')) this.redo()
             else if (input.isPressed('ArrowUp')) this.zoom(1)
             else if (input.isPressed('ArrowDown')) this.zoom(-1)
+            else if (input.isCharPressed('c')) MoveCommand.copy(this.image)
+            else if (input.isCharPressed('v')) {
+                MoveCommand.paste(this.image)
+                this.vm.changeTool('move')
+            }
         }
 
         else if (input.isCharPressed('R')) this.vm.displayResize = true
@@ -140,6 +145,14 @@ class PixelHeartImage extends GameObject {
         }
         else if (input.isCharPressed('b')) this.vm.changeTool('bucket')
         else if (input.isCharPressed('w')) this.vm.changeTool('magic_bucket')
+
+        else if (this.vm.tool === MoveCommand) {
+            if (input.isPressed('Enter')) {
+                this.vm.changeTool('select')
+                SelectCommand.selectionRectangle = null
+            }
+        }
+
         else if (SelectCommand.selectionRectangle) {
 
             if (input.isCharPressed('f')) {
@@ -174,6 +187,7 @@ class PixelHeartImage extends GameObject {
             }
 
         }
+
 
         this.move()
 

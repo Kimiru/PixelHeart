@@ -35,7 +35,7 @@ export default class MoveCommand extends Command {
         calc.ctx.clearRect(this.source.left, this.source.bottom, this.source.w, this.source.h)
         calc.ctx.clearRect(this.source.left + this.offset.x, this.source.bottom + this.offset.y, this.source.w, this.source.h)
 
-        calc.ctx.drawImage(this.imageManipulator.canvas, this.offset.x, this.offset.y)
+        calc.ctx.drawImage(this.imageManipulator.canvas, this.source.left + this.offset.x, this.source.bottom + this.offset.y)
 
     }
 
@@ -58,7 +58,7 @@ export default class MoveCommand extends Command {
         ctx.clearRect(this.source.left, this.source.bottom, this.source.w, this.source.h)
         ctx.clearRect(this.source.left + this.offset.x, this.source.bottom + this.offset.y, this.source.w, this.source.h)
 
-        ctx.drawImage(this.baking.canvas, this.offset.x, this.offset.y)
+        ctx.drawImage(this.baking.canvas, this.source.left + this.offset.x, this.source.bottom + this.offset.y)
 
     }
 
@@ -92,13 +92,19 @@ export default class MoveCommand extends Command {
                 SelectCommand.selectionRectangle.y++
             }
 
-            this.baking.ctx.clearRect(this.source.left, this.source.bottom,
-                this.source.w, this.source.h)
-            this.baking.ctx.drawImage(image.activeCalc.canvas,
-                this.source.left, this.source.bottom,
-                this.source.w, this.source.h,
-                this.source.left, this.source.bottom,
-                this.source.w, this.source.h)
+            if (!this.isCopy) {
+
+                this.baking.ctx.clearRect(0, 0,
+                    this.source.w, this.source.h)
+                this.baking.ctx.drawImage(image.activeCalc.canvas,
+                    this.source.left, this.source.bottom,
+                    this.source.w, this.source.h,
+                    0, 0,
+                    this.source.w, this.source.h)
+
+                this.isCopy = true
+
+            }
 
         }
 
@@ -106,12 +112,14 @@ export default class MoveCommand extends Command {
 
     static startOfUse(image) {
 
-        if (SelectCommand.selectionRectangle) {
+        if (SelectCommand.selectionRectangle && !this.baking) {
 
-            this.source.transform.translation.copy(SelectCommand.selectionRectangle.transform.translation).addS(.5, .5)
-            this.source.transform.scale.copy(SelectCommand.selectionRectangle.transform.scale)
+            this.source.copy(SelectCommand.selectionRectangle)
+            this.source.transform.translation.addS(.5, .5)
 
-            this.baking = new ImageManipulator(image.width, image.height)
+            console.log(this.source.toString())
+
+            this.baking = new ImageManipulator(this.source.w, this.source.h)
             this.offset.set(0, 0)
 
         }
@@ -131,6 +139,65 @@ export default class MoveCommand extends Command {
 
             let command = new MoveCommand(this.baking, source, offset, image.activeCalcNumber)
             image.addCommand(command)
+            this.baking = null
+
+        }
+
+        this.isCopy = false
+
+    }
+
+
+    static copiedZone = null
+    static copySource = null
+    static isCopy = false
+
+    /**
+     * 
+     * @param {PixelImage} image 
+     */
+    static copy(image) {
+
+        if (SelectCommand.selectionRectangle) {
+
+            let imageManipulator = new ImageManipulator(SelectCommand.selectionRectangle.w, SelectCommand.selectionRectangle.h)
+
+            let rect = SelectCommand.selectionRectangle.clone()
+            rect.transform.translation.addS(.5, .5)
+
+            imageManipulator.ctx.drawImage(image.activeCalc.canvas,
+                rect.left, rect.bottom,
+                rect.w, rect.h,
+                0, 0,
+                rect.w, rect.h)
+
+            this.copiedZone = imageManipulator
+            this.copySource = SelectCommand.selectionRectangle.clone()
+
+        }
+    }
+
+
+    /**
+     * 
+     * @param {PixelImage} image 
+     */
+    static paste(image) {
+
+        if (!this.baking) {
+
+            this.isCopy = true
+
+            this.baking = this.copiedZone.clone()
+            this.source.copy(this.copySource)
+            this.source.transform.translation.addS(.5, .5)
+
+            SelectCommand.selectionRectangle = SelectCommand.selectionRectangle ?? this.copySource.clone()
+            SelectCommand.selectionRectangle.copy(this.copySource)
+
+            this.offset.set(0, 0).sub(new Vector(image.width, image.height).sub(this.source.bottomleft))
+
+            this.source.bottomleft = new Vector(image.width, image.height)
 
         }
 

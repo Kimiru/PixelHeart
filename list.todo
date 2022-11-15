@@ -2,8 +2,8 @@ Image:
     - Resize: @done
 
 File:
-    - Save into browser
-    - Open from browser
+    - Save into browser: @done
+    - Open from browser: @deon
     - Open: @done
     - Download: @done
 
@@ -17,7 +17,7 @@ Painting:
         - If selection, move selection: @done
     - Eraser: @done
     - Magic wand: @done
-    - Copy/Paste
+    - Copy/Paste: @done
     - Rectangle Selection: @done
 
 Visuals: @done
