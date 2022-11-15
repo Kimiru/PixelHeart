@@ -157,12 +157,13 @@ class PixelHeartImage extends GameObject {
 
             if (input.isCharPressed('f')) {
 
-                let imageManipulator = new ImageManipulator(this.image.width, this.image.height)
 
                 let source = SelectCommand.selectionRectangle.clone()
                 source.transform.translation.addS(.5, .5)
+                let imageManipulator = new ImageManipulator(source.w, source.h)
+
                 imageManipulator.ctx.fillStyle = this.vm.color
-                imageManipulator.ctx.fillRect(source.left, source.bottom, source.w, source.h)
+                imageManipulator.ctx.fillRect(0, 0, source.w, source.h)
                 let offset = new Vector(0, 0)
 
                 let command = new MoveCommand(imageManipulator, source, offset, this.image.activeCalcNumber)

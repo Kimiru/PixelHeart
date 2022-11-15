@@ -93,3 +93,11 @@
     background-size: cover;
     image-rendering: pixelated;
 }
+
+#file-manager {
+
+    background: url('../res/images/FloppyDisk_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+
+}
