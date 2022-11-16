@@ -91,6 +91,15 @@
 
             <div>
                 <div class="tool">
+                    <label id="flip-h-tool" v-bind:title="lang.fliph[language]" v-on:click="fliph"></label>
+                </div>
+                <div class="tool">
+                    <label id="flip-v-tool" v-bind:title="lang.flipv[language]" v-on:click="flipv"></label>
+                </div>
+            </div>
+
+            <div>
+                <div class="tool">
                     <label id="undo-tool" v-bind:title="lang.undo[language] + ' (lctrl+z)'" v-on:click="undo"></label>
                 </div>
                 <div class="tool">

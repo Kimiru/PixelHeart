@@ -198,7 +198,10 @@ const vm = Vue.createApp({
             }
             source.src = vm.localStorageFiles[key]
 
-        }
+        },
+
+        fliph: function () { engine.scene.getTags('image')[0].fliph() },
+        flipv: function () { engine.scene.getTags('image')[0].flipv() }
 
     },
     watch: {

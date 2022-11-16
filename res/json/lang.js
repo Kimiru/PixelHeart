@@ -94,6 +94,17 @@ export default {
         en: 'Resize',
         tokipona: 'pali e suli anu lili',
     },
+    flipv: {
+        fr: 'Retourner verticalement',
+        en: 'Flip vertically',
+        tokipona: 'ante e sewi en anpa',
+    },
+    fliph: {
+        fr: 'Retourner horizontalement',
+        en: 'Flip horizontally',
+        tokipona: 'ante e poka ike en poka pona',
+    },
+
 
     width: {
         fr: 'Largeur',

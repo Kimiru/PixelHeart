@@ -101,3 +101,19 @@
     image-rendering: pixelated;
 
 }
+
+#flip-h-tool {
+
+    background: url('../res/images/FlipH_19x19.png');
+    background-size: cover;
+    image-rendering: pixelated;
+
+}
+
+#flip-v-tool {
+
+    background: url('../res/images/FlipV_19x19.png');
+    background-size: cover;
+    image-rendering: pixelated;
+
+}
