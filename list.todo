@@ -34,8 +34,8 @@ Layers: @tbd
     - New layer
 
 Transformation:
-    - Flip V/H
-    - Rotate 90°
+    - Flip V/H: @done
+    - Rotate 90°: @tbd (require square selection)
 
 Colors: @done
     - View current Colors: @done
