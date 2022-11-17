@@ -119,8 +119,6 @@ export default class MoveCommand extends Command {
             this.source.copy(SelectCommand.selectionRectangle)
             this.source.transform.translation.addS(.5, .5)
 
-            console.log(this.source.toString())
-
             this.baking = new ImageManipulator(this.source.w, this.source.h)
             this.offset.set(0, 0)
 
