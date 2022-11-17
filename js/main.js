@@ -1,6 +1,6 @@
 import lang from '../res/json/lang.js'
 import tools from './Tools.js'
-import { GameEngine, ImageManipulator, range } from '../2DGameEngine/js/2DGameEngine.js'
+import { GameEngine, ImageManipulator } from '../2DGameEngine/js/2DGameEngine.js'
 import { PixelHeartScene } from './PixelHeart.js'
 import ResizeCommand from './Commands/ResizeCommand.js'
 import OpenCommand from './Commands/OpenCommand.js'

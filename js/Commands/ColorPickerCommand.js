@@ -1,7 +1,6 @@
-import { ImageManipulator, Vector } from "../../2DGameEngine/js/2DGameEngine.js";
+import { Vector } from "../../2DGameEngine/js/2DGEMath.js";
 import PixelImage from "../PixelImage.js";
 import Command from "./Command.js";
-import SelectCommand from "./SelectCommand.js";
 
 export default class ColorPickerCommand extends Command {
 

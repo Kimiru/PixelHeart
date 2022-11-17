@@ -1,4 +1,5 @@
-import { ImageManipulator, Vector } from "../../2DGameEngine/js/2DGameEngine.js";
+import { ImageManipulator } from "../../2DGameEngine/js/2DGameEngine.js";
+import { Vector } from "../../2DGameEngine/js/2DGEMath.js";
 import PixelImage from "../PixelImage.js";
 import Command from "./Command.js";
 import SelectCommand from "./SelectCommand.js";
@@ -75,7 +76,6 @@ export default class RectangleCommand extends Command {
         let v01 = new Vector(v0.x, v1.y)
         let v10 = new Vector(v1.x, v0.y)
 
-        this.plotLine(ctx, v0, v01, color)
         this.plotLine(ctx, v0, v10, color)
         this.plotLine(ctx, v1, v01, color)
         this.plotLine(ctx, v1, v10, color)
