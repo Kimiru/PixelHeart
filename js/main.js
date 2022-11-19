@@ -47,6 +47,7 @@ const vm = Vue.createApp({
 
             displayFiles: false,
             fileEvent: null,
+            currentFilename: '',
 
             localStorageFiles: JSON.parse(localStorage.getItem('storedImages')) ?? {}
         }
@@ -103,7 +104,7 @@ const vm = Vue.createApp({
         },
         download: function () {
 
-            let name = prompt(lang.givename[this.language])
+            let name = prompt(lang.givename[this.language], vm.currentFilename)
             if (name === null) return
             if (name === '') name = 'PixelHeart'
 
@@ -134,6 +135,9 @@ const vm = Vue.createApp({
 
             }
             image.src = URL.createObjectURL(e.target.files[0])
+            let filename = /(.*)\..+$/.exec(e.target.files[0].name)
+
+            vm.currentFilename = filename[1]
 
         },
 
@@ -170,6 +174,7 @@ const vm = Vue.createApp({
                 image.addCommand(command)
 
                 vm.displayFiles = false
+                vm.currentFilename = key
             }
             source.src = vm.localStorageFiles[key]
 

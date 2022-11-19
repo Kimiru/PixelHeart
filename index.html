@@ -199,8 +199,8 @@
                     </div>
                 </div>
                 <div>
-                    <input id="inputFileName" type="text" v-on:keyup.enter="saveCanvasIntoLocalStorage"><button
-                        v-on:click="saveCanvasIntoLocalStorage">
+                    <input id="inputFileName" type="text" v-on:keyup.enter="saveCanvasIntoLocalStorage"
+                        v-model="currentFilename"><button v-on:click="saveCanvasIntoLocalStorage">
                         {{ lang.localStorage.save[language] }} </button>
                 </div>
             </div>
