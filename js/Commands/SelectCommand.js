@@ -167,7 +167,7 @@ export default class SelectCommand extends Command {
                 ctx.textBaseline = 'bottom'
                 ctx.textAlign = 'center'
 
-                ctx.fillText(Number(this.selectionRectangle.h).toString(),
+                ctx.fillText(Number(this.selectionRectangle.w).toString(),
                     -image.width / 2 + .5 + this.selectionRectangle.x, -image.height / 2 - 1.5)
 
             }
