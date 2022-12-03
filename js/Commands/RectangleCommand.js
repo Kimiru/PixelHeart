@@ -76,6 +76,7 @@ export default class RectangleCommand extends Command {
         let v01 = new Vector(v0.x, v1.y)
         let v10 = new Vector(v1.x, v0.y)
 
+        this.plotLine(ctx, v0, v01, color)
         this.plotLine(ctx, v0, v10, color)
         this.plotLine(ctx, v1, v01, color)
         this.plotLine(ctx, v1, v10, color)
