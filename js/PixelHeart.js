@@ -261,16 +261,6 @@ class PixelHeartImage extends GameObject {
 
         this.transform.scale.set(this.image.width, this.image.height)
 
-
-        if (this.lastTool !== this.vm.tool) {
-
-            if (typeof this.lastTool === 'function') this.lastTool.endOfUse(this.image)
-            if (typeof this.vm.tool === 'function') this.vm.tool.startOfUse(this.image)
-
-            this.lastTool = this.vm.tool
-        }
-
-
         if (typeof this.vm.tool === 'function') {
 
             let command = this.vm.tool.use(input, position, mouse.left, this.vm.color, this.image)
@@ -282,6 +272,13 @@ class PixelHeartImage extends GameObject {
         if (typeof this.vm.tool !== 'function' || !this.vm.tool.hasCommandInBaking() || this.vm.tool === MoveCommand)
             this.keyEvent()
 
+        if (this.lastTool !== this.vm.tool) {
+
+            if (typeof this.lastTool === 'function') this.lastTool.endOfUse(this.image)
+            if (typeof this.vm.tool === 'function') this.vm.tool.startOfUse(this.image)
+
+            this.lastTool = this.vm.tool
+        }
 
     }
 
