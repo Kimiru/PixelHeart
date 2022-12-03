@@ -369,13 +369,16 @@ class PixelHeartImage extends GameObject {
     drawBlackGrid(ctx) {
 
         ctx.stokeStyle = 'black'
-        ctx.lineWidth = .003
 
         let width = this.image.width
         let height = this.image.height
 
         let pixelsWidth = 1 / width
         let pixelsHeight = 1 / height
+
+        let minSize = Math.min(pixelsWidth, pixelsHeight)
+        ctx.lineWidth = minSize / 50
+
 
         for (let index = 1; index < height; index++) {
             ctx.beginPath()
