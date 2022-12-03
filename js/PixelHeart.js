@@ -235,7 +235,10 @@ class PixelHeartImage extends GameObject {
 
         if (this.vm.displayResize || this.vm.displayFiles) return
 
-        if (input.isPressed('ArrowLeft')) {
+        if (input.isPressed('Space')) {
+            this.scene.camera.transform.translation.set(0, 0)
+        }
+        else if (input.isPressed('ArrowLeft')) {
             this.scene.camera.transform.translation.x--
         }
         else if (input.isPressed('ArrowRight')) {
