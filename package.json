@@ -1,0 +1,28 @@
+{
+  "name": "pixelheart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "directories": {
+    "buildResources": ".",
+    "app": "."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kimiru/PixelHeart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kimiru/PixelHeart/issues"
+  },
+  "homepage": "https://github.com/Kimiru/PixelHeart#readme",
+  "devDependencies": {
+    "electron": "^22.0.0"
+  }
+}

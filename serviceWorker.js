@@ -1,7 +1,5 @@
 const cacheName = 'PixelHeart'
 
-console.log('abc')
-
 //Install service worker
 self.addEventListener('install', (evt) => {
 
@@ -17,18 +15,25 @@ self.addEventListener('activate', (evt) => {
 
 self.addEventListener('fetch', (evt) => {
 
+    if (/^file:\/\//.exec(evt.request.url)) {
+        console.log('ignored file protocol')
+        return
+    } else {
+        console.log('fetching', evt.request.url)
+    }
+
     evt.respondWith(caches.open(cacheName)
         .then((cache) => {
 
             return fetch(evt.request.url)
                 .then((res) => {
-                    cache.put(evt.request, res.clone());
+                    cache.put(evt.request, res.clone())
 
-                    return res;
+                    return res
                 })
                 .catch(() => {
                     // If the network is unavailable, get
-                    return cache.match(evt.request.url);
+                    return cache.match(evt.request.url)
                 })
         })
     )
