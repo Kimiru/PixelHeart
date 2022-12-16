@@ -1,8 +1,8 @@
-import { Camera, GameObject, GameScene, ImageManipulator } from "../2DGameEngine/js/2DGameEngine.js";
-import MoveCommand from "./Commands/MoveCommand.js";
-import SelectCommand from "./Commands/SelectCommand.js";
-import PixelImage from "./PixelImage.js";
-import tools from "./Tools.js";
+import { Camera, GameObject, GameScene, ImageManipulator } from "../2DGameEngine/js/2DGameEngine.js"
+import MoveCommand from "./Commands/MoveCommand.js"
+import SelectCommand from "./Commands/SelectCommand.js"
+import PixelImage from "./PixelImage.js"
+import tools from "./Tools.js"
 import { Vector } from '../2DGameEngine/js/2DGEMath.js'
 import { Rectangle } from '../2DGameEngine/js/2DGEGeometry.js'
 
