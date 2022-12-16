@@ -4,6 +4,9 @@ import { GameEngine, ImageManipulator } from '../2DGameEngine/js/2DGameEngine.js
 import { PixelHeartScene } from './PixelHeart.js'
 import ResizeCommand from './Commands/ResizeCommand.js'
 import OpenCommand from './Commands/OpenCommand.js'
+import { createApp } from '../node_modules/vue/dist/vue.esm-browser.js'
+
+console.log(createApp)
 
 const rem = 16
 
@@ -24,7 +27,7 @@ function updateColor() {
 
 }
 
-const vm = Vue.createApp({
+const vm = createApp({
 
     data() {
         return {

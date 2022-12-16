@@ -24,5 +24,8 @@
   "homepage": "https://github.com/Kimiru/PixelHeart#readme",
   "devDependencies": {
     "electron": "^22.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.2.45"
   }
 }
