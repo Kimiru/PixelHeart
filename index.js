@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 
 function createWindow() {
@@ -30,5 +30,20 @@ app.whenReady().then(() => {
     app.on('window-all-closed', () => {
         if (process.platform !== 'darwin') app.quit()
     })
+
+    const template = [
+        {
+            label: "File",
+            submenu: [
+                {
+                    label: 'exit',
+                    role: 'quit'
+                }
+            ]
+        }
+    ]
+
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
 
 })
