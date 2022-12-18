@@ -38,6 +38,9 @@ app.whenReady().then(() => {
                 {
                     label: 'exit',
                     role: 'quit'
+                },
+                {
+                    role: 'toggleDevTools'
                 }
             ]
         }

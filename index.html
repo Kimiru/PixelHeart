@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./css/ToolsImages.css">
     <link rel="stylesheet" href="./css/Flags.css">
     <link rel="stylesheet" href="./css/Files.css">
+    <link rel="stylesheet" href="./css/Tools.css">
+    <link rel="stylesheet" href="./css/Palette.css">
     <link rel="shortcut icon" href="PixelHeart_16x16.png" type="image/png">
 
     <script src="./js/main.js" type="module" defer></script>
@@ -19,8 +21,7 @@
 <body>
 
     <div id="app">
-
-        <div id="tools">
+        <!-- <div id="tools">
             <div>
                 <div class="tool">
                     <input id="pen-tool" type="radio" name="tool" checked>
@@ -115,8 +116,6 @@
                 </div>
             </div>
 
-
-
             <div>
 
                 <div class="tool">
@@ -136,16 +135,20 @@
 
             </div>
 
-        </div>
+        </div> -->
         <div id="canvas"></div>
-        <div id="palette">
+
+        <!-- <div id="palette">
             <div id="colorPicker">
                 <input type="color" v-model="baseColor">
                 <div id="alpha">
                     {{ lang.a[language] }} : <input type="number" min="0" max="255" step="1" v-model="alpha">
                 </div><input type="range" min="0" max="255" step="1" v-model="alpha">
 
-                <div id="colorPreview"> <span> {{color}} </span> <span id="colorPreviewPatch"> </span> </div>
+                <div id="colorPreview"> <span> {{color}} </span> <span id="colorPreviewPatch"
+                        :style="{'box-shadow': 'inset 0 0 0 1000px ' + color}">
+                    </span></span>
+                </div>
             </div>
             <div id="currentColors">
 
@@ -164,8 +167,8 @@
                 </div>
             </div>
 
-        </div>
-        <div id="resize" :style="{'display': displayResize?'block':'none'}">
+        </div> -->
+        <!-- <div id="resize" :style="{'display': displayResize?'block':'none'}">
 
             <div>
                 <span>{{ lang.width[language] }}</span>
@@ -216,7 +219,7 @@
 
 
             <button id="closeButton" v-on:click="displayFiles=false"> &times; </button>
-        </div>
+        </div> -->
 
         <div id="flags">
 

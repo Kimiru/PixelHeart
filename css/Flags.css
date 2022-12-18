@@ -15,9 +15,9 @@
 .flag {
     background-size: cover;
     image-rendering: pixelated;
-
+    background-repeat: no-repeat;
     cursor: pointer;
-    border: 2px solid white;
+    border: 2px solid transparent;
     box-sizing: border-box;
 
 }
