@@ -1,7 +1,8 @@
-import { createApp } from '../node_modules/vue/dist/vue.esm-browser.js'
+import { createApp } from '../node_modules/vue/dist/vue.esm-browser.prod.js'
 import engine from './engineFactory.js'
+import tools from './tooling/tools.js'
 import lang from '../res/json/lang.js'
-import tools from './tools.js'
+import scene from './sceneFactory.js'
 
 if ('serviceWorker' in navigator)
     navigator.serviceWorker.register('serviceWorker.js')
@@ -27,7 +28,10 @@ function appData() {
 
         baseColor: '#000000',
         alpha: 255,
-        color: '#000000ff'
+        color: '#000000ff',
+
+        drawBackground: true,
+        drawGrid: true,
 
     }
 }
@@ -38,9 +42,19 @@ const vueApp = createApp({
 
     methods: {
 
-        changeTool(tool) {
-            (document.querySelector('#' + tool + '-tool') as HTMLInputElement).checked = true
-            this.tool = this.tools[tool]
+        setLanguage(language: string) {
+
+            localStorage.setItem('language', language)
+
+            this.language = language
+            let event = new CustomEvent('Language', { detail: { language } })
+
+            window.dispatchEvent(event)
+
+        },
+
+        setTool(tool) {
+            this.tool = tool
         }
 
     },
@@ -52,8 +66,10 @@ const vueApp = createApp({
 
 }).mount('#app')
 
+globalThis.vueApp = vueApp
 
-document.querySelector('#canvas').replaceWith(engine.canvas)
+document.querySelector('#canvas')?.replaceWith(engine.canvas)
+engine.setScene(scene)
 
 let language = localStorage.getItem('language')
-if (language) vueApp.language = language
+if (language) setTimeout(() => { vueApp.setLanguage(language) })

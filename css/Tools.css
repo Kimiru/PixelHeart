@@ -1,75 +1,47 @@
 #tools {
 
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translate(0%, -50%);
+    margin: auto;
+    display: grid;
 
-    display: flex;
+    grid-template-areas:
+        'pen eraser'
+        'background grid';
 
+    gap: .3rem;
 
-
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    font-size: 2rem;
 
 }
 
-#tools>* {
 
-    display: flex;
-
-}
 
 .tool {
-    display: inline;
+    position: relative;
 
-}
+    display: inline-block;
 
-.tool * {
+    width: 2rem;
+    height: 2rem;
+    padding: .2rem;
+
     cursor: pointer;
-}
-
-.tool>input[type=radio], .tool>input[type=checkbox] {
-
-    display: none;
 
 }
 
-.tool>input[type=radio]:checked+label {
+@media (max-aspect-ratio: 1/1) {
 
-    border-color: lightpink;
+    #tools {
+        grid-template-areas:
+            'pen background'
+            'eraser grid';
 
-}
+    }
 
-.tool>input[type=checkbox]:checked+label {
+    .tool {
 
-    border-color: lime;
+        width: calc(min(2rem, 7vw));
+        height: calc(min(2rem, 7vw));
 
-}
-
-.tool>label {
-
-    display: block;
-
-    width: 3rem;
-    height: 3rem;
-
-    /* padding: 1.2rem; */
-    margin: .2rem;
-
-    box-sizing: border-box;
-    border: 2px solid black;
-    border-radius: .5rem;
-
-    transition: .25s border-color;
-
-}
-
-.tool>label:hover {
-
-    border-color: magenta !important;
+    }
 
 }

@@ -16,7 +16,7 @@ self.addEventListener('activate', (evt) => {
 self.addEventListener('fetch', (evt) => {
 
     if (/^file:\/\//.exec(evt.request.url)) {
-        console.log('ignored file protocol')
+        // console.log('ignored file protocol')
         return
     } else {
         console.log('fetching', evt.request.url)

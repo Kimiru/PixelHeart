@@ -2,11 +2,11 @@
     "name": "pixelheart",
     "version": "1.0.0",
     "description": "",
-    "main": "index.cjs",
-    "type": "module",
+    "main": "index.js",
+    "type": "commonjs",
     "scripts": {
         "start": "electron .",
-        "build": "tsc",
+        "build": "echo 'export default ' > ./res/json/lang.js && cat ./res/json/lang.json >> ./res/json/lang.js && tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "directories": {

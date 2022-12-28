@@ -1,5 +1,5 @@
-import { GameObject } from "../../../2DGameEngine/js/2DGameEngine.js";
-import PixelHeartImage from "../PixelHeartImage.js";
+import { GameObject, Input } from "../../../2DGameEngine/js/2DGameEngine.js"
+import PixelHeartImage from "../PixelHeartImage.js"
 
 export class Command {
 
@@ -11,7 +11,20 @@ export class Command {
 
 export class CommandFactory extends GameObject {
 
-    flush(command: Command) {
+    static pushCommand(command: Command) {
+
+        window.dispatchEvent(new CustomEvent('PushCommand', { detail: { command } }))
+
+    }
+
+    static rebuildCommands() {
+
+        window.dispatchEvent(new CustomEvent('Rebuild'))
+
+
+    }
+
+    static handle(dt: number, [width, height]: [number, number], color: string, input: Input) {
 
     }
 

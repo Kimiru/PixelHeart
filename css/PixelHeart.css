@@ -1,3 +1,14 @@
+@font-face {
+    font-family: Comic;
+    src: url('../res/font/qd-better-comic-sans-font/Qdbettercomicsans-jEEeG.ttf');
+}
+
+:root {
+    --bordercolor: #BF9270;
+    --shadowcolor: rgba(191, 146, 112, 0.441);
+    --backgroundcolor: #FFEDDB;
+}
+
 body {
 
     display: flex;
@@ -13,19 +24,58 @@ body {
 
     overflow: hidden;
 
+    background-color: var(--backgroundcolor);
+
 }
 
 * {
     vertical-align: middle;
-    font-family: sans-serif;
+    font-family: Comic;
+    font-size: 1.1rem;
+    color: var(--bordercolor);
 }
 
-button, a {
+button,
+a {
     cursor: pointer !important;
 }
 
-canvas {
-    z-index: -1;
+
+.lined {
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius: 15px 255px;
+    padding: 0.5rem;
+}
+
+.lined.thin {
+    border: 2px solid var(--bordercolor);
+    background-color: var(--backgroundcolor);
+    box-shadow: 3px 4px 2px 2px var(--shadowcolor);
+}
+
+.pin::after {
+
+    content: '';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    transform: translate(-150%, -150%);
+    width: 1rem;
+    height: 1rem;
+    background: url('../res/images/Pin.png');
+    background-size: cover;
+    image-rendering: pixelated;
+    transition: .25s;
+}
+
+
+.pin[current=true]::after {
+    opacity: 1;
+
+    transform: translate(-50%, -50%);
 }
 
 /* Palette CSS */
