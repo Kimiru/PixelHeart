@@ -19,3 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
+window.addEventListener('electron', (event) => {
+    window.dispatchEvent(new Event('removeShortcuts'))
+})

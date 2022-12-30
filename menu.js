@@ -26,11 +26,11 @@ function generateMenu(language = 'en', window) {
                 { label: lang.menu.undo[language], accelerator: 'CommandOrControl+Z', click() { send('undo') } },
                 { label: lang.menu.redo[language], accelerator: 'CommandOrControl+Y', click() { send('redo') } },
                 { type: 'separator' },
-                { label: lang.menu.cut[language], accelerator: 'CommandOrControl+X' },
-                { label: lang.menu.copy[language], accelerator: 'CommandOrControl+C' },
-                { label: lang.menu.paste[language], accelerator: 'CommandOrControl+V' },
+                { label: lang.menu.cut[language], accelerator: 'CommandOrControl+X', click() { send('cut') } },
+                { label: lang.menu.copy[language], accelerator: 'CommandOrControl+C', click() { send('copy') } },
+                { label: lang.menu.paste[language], accelerator: 'CommandOrControl+V', click() { send('paste') } },
                 { type: 'separator' },
-                { label: lang.menu.selectall[language], accelerator: 'CommandOrControl+A' },
+                { label: lang.menu.selectall[language], accelerator: 'CommandOrControl+A', click() { send('selectall') } },
             ]
         },
         {

@@ -3,6 +3,7 @@ import engine from './engineFactory.js';
 import tools from './tooling/tools.js';
 import lang from '../res/json/lang.js';
 import scene from './sceneFactory.js';
+import './shortcuts.js';
 if ('serviceWorker' in navigator)
     navigator.serviceWorker.register('serviceWorker.js')
         .then((reg) => { console.log('Service worker registered'); })
@@ -50,3 +51,4 @@ engine.setScene(scene);
 let language = localStorage.getItem('language');
 if (language)
     setTimeout(() => { vueApp.setLanguage(language); });
+window.dispatchEvent(new Event('electron'));
