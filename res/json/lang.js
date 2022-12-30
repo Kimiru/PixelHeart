@@ -62,6 +62,11 @@ export default
             "tokipona": "anu ale"
         }
     },
+    "tools": {
+        "fr": "Outils",
+        "en": "Tools",
+        "tokipona": "ilo mute"
+    },
     "pixelheart": {
         "fr": "PixelHeart",
         "en": "PixelHeart",

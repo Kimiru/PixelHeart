@@ -5,8 +5,28 @@
     top: 1rem;
 
     z-index: 1;
-    display: flex;
 
+    display: grid;
+    grid-template-areas:
+        'title'
+        'content';
+    grid-template-rows: max-content auto;
+}
+
+#menutext {
+    display: none;
+}
+
+#menutitle {
+    grid-area: title;
+
+    text-align: center;
+}
+
+#menucontent {
+    grid-area: content;
+
+    display: flex;
 }
 
 @media (max-aspect-ratio: 1/1) {
@@ -14,7 +34,26 @@
     #menu {
         top: initial;
         right: 1rem;
+        bottom: 1rem;
 
+        transition: .25s height, .25s padding-top;
+
+        overflow: hidden;
+
+    }
+
+    #menutitle {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    #menucontent {
+        height: 0;
+        overflow: hidden;
+    }
+
+    #menutext:checked~#menucontent {
+        height: calc(100vh - 5rem);
     }
 
 }

@@ -13,15 +13,17 @@
 
 }
 
-
+:root {
+    --icon-size: 1.5rem;
+}
 
 .tool {
     position: relative;
 
     display: inline-block;
 
-    width: 2rem;
-    height: 2rem;
+    width: var(--icon-size);
+    height: var(--icon-size);
     padding: .2rem;
 
     cursor: pointer;
@@ -39,8 +41,8 @@
 
     .tool {
 
-        width: calc(min(2rem, 7vw));
-        height: calc(min(2rem, 7vw));
+        width: calc(min(var(--icon-size), 7vw));
+        height: calc(min(var(--icon-size), 7vw));
 
     }
 

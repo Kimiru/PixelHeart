@@ -25,18 +25,23 @@
 
         <div id="canvas"></div>
         <div id="menu" class="lined thin">
-            <div id="tools">
-                <div id="pen-tool" class="tool lined thin pin" v-bind:title="lang.pen[language] + ' (p)'"
-                    v-bind:current="tool==='pen'" v-on:click="setTool('pen')"> </div>
-                <div id="eraser-tool" class="tool lined thin pin" v-bind:title="lang.eraser[language] + ' (e)'"
-                    v-bind:current="tool==='eraser'" v-on:click="setTool('eraser')"> </div>
-                <div id="background-tool" class="tool lined thin pin" v-bind:current="drawBackground"
-                    v-on:click="drawBackground=!drawBackground"> </div>
-                <div id="grid-tool" class="tool lined thin pin" v-bind:current="drawGrid"
-                    v-on:click="drawGrid=!drawGrid"></div>
-            </div>
+            <input id="menutext" type="checkbox">
+            <label id="menutitle" for="menutext">
+                {{lang.tools[language]}}
+            </label>
+            <div id="menucontent">
+                <div id="tools">
+                    <div id="pen-tool" class="tool lined thin pin" v-bind:title="lang.pen[language] + ' (p)'"
+                        v-bind:current="tool==='pen'" v-on:click="setTool('pen')"> </div>
+                    <div id="eraser-tool" class="tool lined thin pin" v-bind:title="lang.eraser[language] + ' (e)'"
+                        v-bind:current="tool==='eraser'" v-on:click="setTool('eraser')"> </div>
+                    <div id="background-tool" class="tool lined thin pin" v-bind:current="drawBackground"
+                        v-on:click="drawBackground=!drawBackground"> </div>
+                    <div id="grid-tool" class="tool lined thin pin" v-bind:current="drawGrid"
+                        v-on:click="drawGrid=!drawGrid"></div>
+                </div>
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <input id="line-tool" type="radio" name="tool">
                         <label for="line-tool" v-bind:title="lang.line[language] + ' (l)'"
@@ -50,7 +55,7 @@
 
                 </div> -->
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <input id="select-tool" type="radio" name="tool">
                         <label for="select-tool" v-bind:title="lang.select[language] + ' (s)'"
@@ -64,7 +69,7 @@
 
                 </div> -->
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <input id="bucket-tool" type="radio" name="tool">
                         <label for="bucket-tool" v-bind:title="lang.bucket[language] + ' (s)'"
@@ -78,7 +83,7 @@
 
                 </div> -->
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <input id="picker-tool" type="radio" name="tool">
                         <label for="picker-tool" v-bind:title="lang.picker[language] + ' (k)'"
@@ -90,7 +95,7 @@
                     </div>
                 </div> -->
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <label id="flip-h-tool" v-bind:title="lang.fliph[language]" v-on:click="fliph"></label>
                     </div>
@@ -99,7 +104,7 @@
                     </div>
                 </div> -->
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <label id="undo-tool" v-bind:title="lang.undo[language] + ' (lctrl+z)'"
                             v-on:click="undo"></label>
@@ -110,7 +115,7 @@
                     </div>
                 </div> -->
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <label id="zoomin-tool" v-bind:title="lang.zoomin[language]" v-on:click="zoom(1)"></label>
                     </div>
@@ -119,7 +124,7 @@
                     </div>
                 </div> -->
 
-            <!-- <div>
+                <!-- <div>
                     <div class="tool">
                         <label id="file-manager" v-bind:title="lang.files[language]"
                             v-on:click="displayFiles=true"></label>
@@ -127,9 +132,9 @@
 
                 </div> -->
 
-        </div>
+            </div>
 
-        <!-- <div id="palette">
+            <!-- <div id="palette">
             <div id="colorPicker">
                 <input type="color" v-model="baseColor">
                 <div id="alpha">
@@ -159,7 +164,7 @@
             </div>
 
         </div> -->
-        <!-- <div id="resize" :style="{'display': displayResize?'block':'none'}">
+            <!-- <div id="resize" :style="{'display': displayResize?'block':'none'}">
 
             <div>
                 <span>{{ lang.width[language] }}</span>
@@ -211,6 +216,7 @@
 
             <button id="closeButton" v-on:click="displayFiles=false"> &times; </button>
         </div> -->
+        </div>
 
         <div id="flags" class="lined thin">
             <div class="flag pin" id="french" v-bind:current="language==='fr'" v-on:click="setLanguage('fr')"></div>
