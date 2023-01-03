@@ -6,27 +6,23 @@ function shortcut(eventName, ctrl, shift, alt, key) {
         }
     };
 }
-const undo = shortcut('undo', true, false, false, 'z');
-const redo = shortcut('redo', true, false, false, 'y');
-const cut = shortcut('redo', true, false, false, 'x');
-const copy = shortcut('redo', true, false, false, 'c');
-const paste = shortcut('redo', true, false, false, 'v');
-const selectall = shortcut('redo', true, false, false, 'v');
+const shortcuts = {
+    save: shortcut('save', true, false, false, 'z'),
+    saveas: shortcut('saveas', true, false, false, 'z'),
+    undo: shortcut('undo', true, false, false, 'z'),
+    redo: shortcut('redo', true, false, false, 'y'),
+    cut: shortcut('cut', true, false, false, 'x'),
+    copy: shortcut('copy', true, false, false, 'c'),
+    paste: shortcut('paste', true, false, false, 'v'),
+    selectall: shortcut('selectall', true, false, false, 'v'),
+};
 function addShortCuts() {
-    window.addEventListener('keydown', undo);
-    window.addEventListener('keydown', redo);
-    window.addEventListener('keydown', cut);
-    window.addEventListener('keydown', copy);
-    window.addEventListener('keydown', paste);
-    window.addEventListener('selectall', selectall);
+    for (let [name, shortcut] of Object.entries(shortcuts))
+        window.addEventListener('keydown', shortcut);
 }
 function removeShortCuts() {
-    window.removeEventListener('keydown', undo);
-    window.removeEventListener('keydown', redo);
-    window.removeEventListener('keydown', cut);
-    window.removeEventListener('keydown', copy);
-    window.removeEventListener('keydown', paste);
-    window.removeEventListener('selectall', selectall);
+    for (let [name, shortcut] of Object.entries(shortcuts))
+        window.removeEventListener('keydown', shortcut);
     console.log('Removed shortcut');
 }
 addShortCuts();

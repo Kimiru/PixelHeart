@@ -15,41 +15,30 @@ function shortcut(eventName: string, ctrl: boolean, shift: boolean, alt: boolean
 
 }
 
-const save = shortcut('save', true, false, false, 'z')
-const saveas = shortcut('saveas', true, false, false, 'z')
+const shortcuts = {
+    save: shortcut('save', true, false, false, 'z'),
+    saveas: shortcut('saveas', true, false, false, 'z'),
+    undo: shortcut('undo', true, false, false, 'z'),
+    redo: shortcut('redo', true, false, false, 'y'),
+    cut: shortcut('cut', true, false, false, 'x'),
+    copy: shortcut('copy', true, false, false, 'c'),
+    paste: shortcut('paste', true, false, false, 'v'),
+    selectall: shortcut('selectall', true, false, false, 'v'),
+}
 
-const undo = shortcut('undo', true, false, false, 'z')
-const redo = shortcut('redo', true, false, false, 'y')
-const cut = shortcut('cut', true, false, false, 'x')
-const copy = shortcut('copy', true, false, false, 'c')
-const paste = shortcut('paste', true, false, false, 'v')
-const selectall = shortcut('selectall', true, false, false, 'v')
+
 
 function addShortCuts() {
 
-    window.addEventListener('keydown', save)
-    window.addEventListener('keydown', saveas)
-
-    window.addEventListener('keydown', undo)
-    window.addEventListener('keydown', redo)
-    window.addEventListener('keydown', cut)
-    window.addEventListener('keydown', copy)
-    window.addEventListener('keydown', paste)
-    window.addEventListener('keydown', selectall)
+    for (let [name, shortcut] of Object.entries(shortcuts))
+        window.addEventListener('keydown', shortcut)
 
 }
 
 function removeShortCuts() {
 
-    window.removeEventListener('keydown', save)
-    window.removeEventListener('keydown', saveas)
-
-    window.removeEventListener('keydown', undo)
-    window.removeEventListener('keydown', redo)
-    window.removeEventListener('keydown', cut)
-    window.removeEventListener('keydown', copy)
-    window.removeEventListener('keydown', paste)
-    window.removeEventListener('keydown', selectall)
+    for (let [name, shortcut] of Object.entries(shortcuts))
+        window.removeEventListener('keydown', shortcut)
 
     console.log('Removed shortcut')
 
