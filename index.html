@@ -35,6 +35,11 @@
                         v-bind:current="tool==='pen'" v-on:click="setTool('pen')"> </div>
                     <div id="eraser-tool" class="tool lined thin pin" v-bind:title="lang.eraser[language] + ' (e)'"
                         v-bind:current="tool==='eraser'" v-on:click="setTool('eraser')"> </div>
+                    <div id="line-tool" class="tool lined thin pin" v-bind:title="lang.line[language] + ' (e)'"
+                        v-bind:current="tool==='line'" v-on:click="setTool('line')"> </div>
+                    <div id="rectangle-tool" class="tool lined thin pin"
+                        v-bind:title="lang.rectangle[language] + ' (e)'" v-bind:current="tool==='rectangle'"
+                        v-on:click="setTool('rectangle')"> </div>
                     <div id="background-tool" class="tool lined thin pin" v-bind:current="drawBackground"
                         v-on:click="drawBackground=!drawBackground"> </div>
                     <div id="grid-tool" class="tool lined thin pin" v-bind:current="drawGrid"

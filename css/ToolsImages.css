@@ -14,13 +14,13 @@
     image-rendering: pixelated;
 }
 
-#line-tool+label {
+#line-tool {
     background: url('../res/images/Line_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#rectangle-tool+label {
+#rectangle-tool {
     background: url('../res/images/Rectangle_18x18.png');
     background-size: cover;
     image-rendering: pixelated;

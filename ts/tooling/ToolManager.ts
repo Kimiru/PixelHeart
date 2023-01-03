@@ -33,6 +33,10 @@ export default class ToolManager extends GameObject {
                 this.#setCursor(`url("res/images/Pen_18x18.png") 0 18, default`, 'pen')
             if (tool === 'eraser')
                 this.#setCursor(`url("res/images/Eraser_18x18.png") 0 18, default`, 'eraser')
+            if (tool === 'line')
+                this.#setCursor(`url("res/images/Pen_18x18.png") 0 18, default`, 'line')
+            if (tool === 'rectangle')
+                this.#setCursor(`url("res/images/Pen_18x18.png") 0 18, default`, 'rectangle')
 
         }
 
