@@ -1,11 +1,12 @@
 import { Vector } from "../../2DGameEngine/js/2DGEMath.js"
 import { Camera, GameObject } from "../../2DGameEngine/js/2DGameEngine.js"
 import { DrawImageCommand } from "./Commands/DrawImageCommand.js"
+import { Selection } from "./Commands/SelectionCommand.js"
 import PixelHeartImage from "./PixelHeartImage.js"
 
 type SheetImageEntry = { position: [number, number], image: PixelHeartImage }
 type SheetContent = { size: [number, number], images: SheetImageEntry[] }
-type SheetExport = { size: [number, number], images: { position: [number, number], base64: string }[] }
+export type SheetExport = { size: [number, number], images: { position: [number, number], base64: string }[] }
 
 export default class PixelHeartSpriteSheet extends GameObject {
 
@@ -83,6 +84,8 @@ export default class PixelHeartSpriteSheet extends GameObject {
             img.src = entry.base64
 
         }
+
+        this.normalizeImagePositions()
 
         let first = this.sheetContent.images.reduce((image, res) => {
             if (image.position[1] < res.position[1]) return image
@@ -243,6 +246,24 @@ export default class PixelHeartSpriteSheet extends GameObject {
         }
     }
 
+    drawSelection(ctx: CanvasRenderingContext2D, width: number, height: number) {
+
+        ctx.save()
+        ctx.scale(1, -1)
+        ctx.translate(-width / 2 + .5, -height / 2 + .5)
+
+        ctx.strokeStyle = 'blue'
+        ctx.lineWidth = .05
+
+        ctx.strokeRect(
+            Selection.rectangle.left,
+            Selection.rectangle.bottom,
+            Selection.rectangle.w, Selection.rectangle.h)
+
+        ctx.restore()
+
+    }
+
     draw(ctx: CanvasRenderingContext2D): void {
 
         const { size: [width, height], images } = this.sheetContent
@@ -271,6 +292,9 @@ export default class PixelHeartSpriteSheet extends GameObject {
 
         if (globalThis.vueApp.drawGrid)
             this.drawGrid(ctx, width, height)
+
+        if (Selection.active)
+            this.drawSelection(ctx, width, height)
 
     }
 

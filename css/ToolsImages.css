@@ -1,104 +1,100 @@
-#pen-tool {
-    grid-area: pen;
-
+.pen-tool {
     background: url('../res/images/Pen_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#eraser-tool {
-    grid-area: eraser;
-
+.eraser-tool {
     background: url('../res/images/Eraser_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#line-tool {
+.line-tool {
     background: url('../res/images/Line_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#rectangle-tool {
+.rectangle-tool {
     background: url('../res/images/Rectangle_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#select-tool+label {
+.select-tool {
     background: url('../res/images/Select_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#move-tool+label {
+.move-tool+label {
     background: url('../res/images/Move_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#undo-tool {
+.undo-tool {
     background: url('../res/images/Undo_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#redo-tool {
+.redo-tool {
     background: url('../res/images/Redo_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#zoomin-tool {
+.zoomin-tool {
     background: url('../res/images/Zoomin_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#zoomout-tool {
+.zoomout-tool {
     background: url('../res/images/Zoomout_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#resize-tool {
+.resize-tool {
     background: url('../res/images/Resize_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#grid-tool {
+.grid-tool {
     background: url('../res/images/Grid_19x19.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#background-tool {
+.background-tool {
     background: url('../res/images/Background_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#bucket-tool+label {
+.bucket-tool {
     background: url('../res/images/Bucket_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#magic_bucket-tool+label {
+.magic_bucket-tool {
     background: url('../res/images/Wand_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#picker-tool+label {
+.picker-tool {
     background: url('../res/images/EyeDropper_18x18.png');
     background-size: cover;
     image-rendering: pixelated;
 }
 
-#file-manager {
+.file-manager {
 
     background: url('../res/images/FloppyDisk_18x18.png');
     background-size: cover;
@@ -106,7 +102,7 @@
 
 }
 
-#flip-h-tool {
+.flip-h-tool {
 
     background: url('../res/images/FlipH_19x19.png');
     background-size: cover;
@@ -114,10 +110,30 @@
 
 }
 
-#flip-v-tool {
+.flip-v-tool {
 
     background: url('../res/images/FlipV_19x19.png');
     background-size: cover;
     image-rendering: pixelated;
 
+}
+
+
+.open-button {
+    background: url('../res/images/Upload_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+.download-button {
+    background: url('../res/images/Download_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+
+.export-button {
+    background: url('../res/images/Export_18x18.png');
+    background-size: cover;
+    image-rendering: pixelated;
 }

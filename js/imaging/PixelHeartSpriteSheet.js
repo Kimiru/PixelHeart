@@ -1,6 +1,7 @@
 import { Vector } from "../../2DGameEngine/js/2DGEMath.js";
 import { Camera, GameObject } from "../../2DGameEngine/js/2DGameEngine.js";
 import { DrawImageCommand } from "./Commands/DrawImageCommand.js";
+import { Selection } from "./Commands/SelectionCommand.js";
 import PixelHeartImage from "./PixelHeartImage.js";
 export default class PixelHeartSpriteSheet extends GameObject {
     sheetContent = null;
@@ -50,6 +51,7 @@ export default class PixelHeartSpriteSheet extends GameObject {
             };
             img.src = entry.base64;
         }
+        this.normalizeImagePositions();
         let first = this.sheetContent.images.reduce((image, res) => {
             if (image.position[1] < res.position[1])
                 return image;
@@ -164,6 +166,15 @@ export default class PixelHeartSpriteSheet extends GameObject {
             ctx.stroke();
         }
     }
+    drawSelection(ctx, width, height) {
+        ctx.save();
+        ctx.scale(1, -1);
+        ctx.translate(-width / 2 + .5, -height / 2 + .5);
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = .05;
+        ctx.strokeRect(Selection.rectangle.left, Selection.rectangle.bottom, Selection.rectangle.w, Selection.rectangle.h);
+        ctx.restore();
+    }
     draw(ctx) {
         const { size: [width, height], images } = this.sheetContent;
         let horizontalUnit = width;
@@ -181,5 +192,7 @@ export default class PixelHeartSpriteSheet extends GameObject {
         }
         if (globalThis.vueApp.drawGrid)
             this.drawGrid(ctx, width, height);
+        if (Selection.active)
+            this.drawSelection(ctx, width, height);
     }
 }

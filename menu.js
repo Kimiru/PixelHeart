@@ -34,6 +34,13 @@ function generateMenu(language = 'en', window) {
             ]
         },
         {
+            label: lang.menu.view[language],
+            submenu: [
+                { label: lang.menu.bigger[language], click() { send('bigger') } },
+                { label: lang.menu.smaller[language], click() { send('smaller') } }
+            ]
+        },
+        {
             label: 'Other',
             submenu: [
                 { role: 'reload' },

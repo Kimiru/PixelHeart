@@ -3,13 +3,13 @@
     margin: auto;
     display: grid;
 
-    grid-template-areas:
-        'pen eraser'
-        'background grid';
+    grid-template-columns: 1fr 1fr;
 
     gap: .3rem;
 
     font-size: 2rem;
+
+    background-origin: content-box;
 
 }
 
@@ -33,9 +33,8 @@
 @media (max-aspect-ratio: 1/1) {
 
     #tools {
-        grid-template-areas:
-            'pen background'
-            'eraser grid';
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
 
     }
 

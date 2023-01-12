@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toRender('save')
     toRender('undo')
     toRender('redo')
+    toRender('bigger')
+    toRender('smaller')
 
 })
 

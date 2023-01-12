@@ -1,6 +1,7 @@
 import { Vector } from "../../../2DGameEngine/js/2DGEMath.js"
 import { ImageManipulator, Input } from "../../../2DGameEngine/js/2DGameEngine.js"
 import { Command, CommandFactory } from "./Command.js"
+import { Selection } from "./SelectionCommand.js"
 
 export class EraserCommand extends Command {
 
@@ -50,9 +51,8 @@ export class EraserCommandFactory extends CommandFactory {
             }
 
             if (!this.lastMousePosition || !this.lastMousePosition.equal(position)) {
-
-                this.commandInBaking.imageManipulator.ctx.fillStyle = color
-                this.commandInBaking.imageManipulator.ctx.fillRect(position.x, position.y, 1, 1)
+                if (!Selection.active || Selection.rectangle.contains(new Vector(position.x, position.y)))
+                    this.commandInBaking.imageManipulator.setPixel(position.x, position.y, color)
 
                 CommandFactory.rebuildCommands()
 

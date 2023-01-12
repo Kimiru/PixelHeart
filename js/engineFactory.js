@@ -16,7 +16,7 @@ const engine = new GameEngine({
     verticalPixels: 64 + 6,
     scaling: devicePixelRatio,
     canvas: null,
-    images: [{ name: 'pen', src: 'res/images/Pen_18x18.png' }],
+    images: [],
     sounds: []
 });
 engine.canvas.style.backgroundColor = '#00000000';

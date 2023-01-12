@@ -24,6 +24,10 @@ export default class ToolManager extends GameObject {
                 this.#setCursor(`url("res/images/Pen_18x18.png") 0 18, default`, 'line');
             if (tool === 'rectangle')
                 this.#setCursor(`url("res/images/Pen_18x18.png") 0 18, default`, 'rectangle');
+            if (tool === 'select')
+                this.#setCursor(`url("res/images/Pen_18x18.png") 0 18, default`, 'select');
+            if (tool === 'picker')
+                this.#setCursor(`url("res/images/EyeDropper_18x18.png") 0 18, default`, 'select');
         }
     }
     update(dt) {

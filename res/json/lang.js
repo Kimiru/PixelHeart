@@ -60,6 +60,21 @@ export default
             "fr": "Tout sélectionner",
             "en": "Select all",
             "tokipona": "anu ale"
+        },
+        "view": {
+            "fr": "Apparence",
+            "en": "View",
+            "tokipona": "lukin"
+        },
+        "bigger": {
+            "fr": "Agrandir",
+            "en": "Enlarge",
+            "tokipona": "pali suli"
+        },
+        "smaller": {
+            "fr": "Réduire",
+            "en": "Reduce",
+            "tokipona": "pali lili"
         }
     },
     "tools": {
@@ -138,14 +153,24 @@ export default
         "tokipona": "sitelen e monsi"
     },
     "download": {
-        "fr": "Télécharger l\"image",
+        "fr": "Télécharger l'image",
         "en": "Download the image",
         "tokipona": "jo e sitelen"
+    },
+    "export": {
+        "fr": "Exporter le projet",
+        "en": "Export project",
+        "tokipona": "jo e lipu"
     },
     "givename": {
         "fr": "Donnez un nom à votre image:",
         "en": "Give a name to your image:",
         "tokipona": "o sitelen sina la sina pana e nimi"
+    },
+    "givenameproject": {
+        "fr": "Donnez un nom à votre projet:",
+        "en": "Give a name to your project:",
+        "tokipona": "o lipu sina la sina pana e nimi"
     },
     "resize": {
         "fr": "Redimensionner",
@@ -203,9 +228,9 @@ export default
         "tokipona": "kule lon li awen"
     },
     "open": {
-        "fr": "Ouvrir une image",
-        "en": "Open an image",
-        "tokipona": "open e sitelen"
+        "fr": "Ouvrir une image ou un projet",
+        "en": "Open an image or a project",
+        "tokipona": "open e sitelen anu lipu"
     },
     "localStorage": {
         "title": {

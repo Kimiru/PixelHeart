@@ -1,5 +1,6 @@
 import { Vector } from "../../../2DGameEngine/js/2DGEMath.js";
 import { Command, CommandFactory } from "./Command.js";
+import { Selection } from "./SelectionCommand.js";
 export class LineCommand extends Command {
     v0;
     v1;
@@ -22,9 +23,8 @@ export class LineCommand extends Command {
         let error = dx + dy;
         ctx.fillStyle = color;
         while (true) {
-            // TODO
-            // if (!SelectCommand.selectionRectangle || SelectCommand.selectionRectangle.contains(new Vector(x0, y0)))
-            ctx.fillRect(x0, y0, 1, 1);
+            if (!Selection.active || Selection.rectangle.contains(new Vector(x0, y0)))
+                ctx.fillRect(x0, y0, 1, 1);
             if (x0 === x1 && y0 === y1)
                 break;
             let e2 = 2 * error;
