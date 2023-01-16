@@ -22,7 +22,17 @@
 <body>
 
     <div id="app">
+        <a id="download" style="display: none;"></a>
         <input type="file" id="fileinput" style="display: none; " v-on:change="openFile">
+        <div id="fileName" :style="{display:displayFileNamePicker?'initial':'none'}">
+            <div>
+                <input id="fileNameInput" v-model="currentFileName">
+            </div>
+            <div>
+                <button v-on:click="filenameCallback?.(undefined)">Cancel</button>
+                <button v-on:click="filenameCallback?.(currentFileName)">Confirm</button>
+            </div>
+        </div>
 
         <div id="canvas"></div>
         <div id="mainMenu" class="circularMenu" :style="{transform:`scale(${interfaceScale, interfaceScale})`}">

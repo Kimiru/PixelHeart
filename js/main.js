@@ -4,6 +4,7 @@ import tools from './tooling/tools.js';
 import lang from '../res/json/lang.js';
 import scene from './sceneFactory.js';
 import './shortcuts.js';
+import { openFile, saveFile, saveFileAs } from './fileManager.js';
 if ('serviceWorker' in navigator)
     navigator.serviceWorker.register('serviceWorker.js')
         .then((reg) => { console.log('Service worker registered'); })
@@ -31,7 +32,11 @@ function appData() {
         drawBackground: true,
         drawGrid: true,
         interfaceScale: 1,
-        currentFileName: ''
+        currentFileName: '',
+        currentSaveType: 'png',
+        displayFileNamePicker: false,
+        filenameCallback: null,
+        filenamePromise: null
     };
 }
 const vueApp = createApp({
@@ -52,40 +57,33 @@ const vueApp = createApp({
             localStorage.setItem('scale', scale);
         },
         openFile(event) {
-            let input = event.target;
-            let file = input.files[0];
-            let filename = file.name;
-            let ext = file.name.split('.').pop();
-            console.log(filename, ext);
-            if (ext === 'json') {
-                let filereader = new FileReader();
-                filereader.onload = (event) => {
-                    let data = JSON.parse(event.target.result.toString());
-                    if (!data.size || !Array.isArray(data.size) || data.size.length === 2)
-                        return console.error('missing field "size" a tuple [number, number]');
-                    if (!data.images || !Array.isArray(data.images) || data.images.length === 0)
-                        return console.error('missing field "images" an array of {position: [number, number], base64: string} with at least one image');
-                    for (let index in data.images) {
-                        let image = data.images[index];
-                        if (!image.position || !Array.isArray(image.position) || data.position.length === 2)
-                            return console.error(`missing field "position" a tuple [number, number] inside images[${index}]`);
-                        if (!image.base64 || typeof image.base64 !== 'string')
-                            return console.error(`missing field "base64" a string inside images[${index}]`);
-                    }
-                    globalThis.spriteSheet.import(data);
-                    this.currentFileName = filename;
-                };
-                filereader.readAsText(file);
-            }
-            else {
-            }
+            openFile();
         },
-        exportFile() {
-            let filename = prompt(lang.givename[this.language], this.currentFileName);
-            if (!filename || filename === '')
-                return;
-            this.currentFileName = filename;
-            console.log(filename);
+        async exportFile() {
+            if (this.filenameCallback) {
+                this.filenameCallback?.(undefined);
+                await this.filenamePromise;
+            }
+            this.displayFileNamePicker = true;
+            this.filenamePromise = new Promise((ok) => {
+                this.filenameCallback = ok;
+            })
+                .then((filename) => {
+                if (filename === undefined || filename === '')
+                    throw 'Canceled';
+                let link = document.querySelector('download');
+                let data = `data:text/json;charset=utf-8,` + encodeURIComponent(JSON.stringify(globalThis.spriteSheet.export()));
+                console.log(data);
+                link.href = data;
+                link.download = filename + '.json';
+                link.click();
+                console.log(filename);
+            })
+                .catch(() => { })
+                .finally(() => {
+                this.displayFileNamePicker = false;
+                this.filenamePromise = null;
+            });
         }
     },
     watch: {
@@ -105,3 +103,26 @@ if (scale)
 window.dispatchEvent(new Event('electron'));
 window.addEventListener('bigger', () => vueApp.setScale(Math.min(vueApp.interfaceScale + .2)));
 window.addEventListener('smaller', () => vueApp.setScale(Math.max(1, vueApp.interfaceScale - .2)));
+window.addEventListener('open', () => {
+    document.getElementById('fileinput').click();
+});
+window.addEventListener('save', () => {
+    if (!globalThis.electron || vueApp.currentFileName === '')
+        return window.dispatchEvent(new Event('saveas'));
+    vueApp.currentSaveType = 'png';
+    saveFile(globalThis.spriteSheet.exportImage());
+});
+window.addEventListener('saveas', () => {
+    vueApp.currentSaveType = 'png';
+    saveFileAs(globalThis.spriteSheet.exportImage());
+});
+window.addEventListener('export', () => {
+    if (!globalThis.electron || vueApp.currentFileName === '')
+        return window.dispatchEvent(new Event('exportas'));
+    vueApp.currentSaveType = 'json';
+    saveFile(globalThis.spriteSheet.exportAsString());
+});
+window.addEventListener('exportas', () => {
+    vueApp.currentSaveType = 'json';
+    saveFileAs(globalThis.spriteSheet.exportAsString());
+});

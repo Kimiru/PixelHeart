@@ -118,3 +118,13 @@ a {
     margin-top: .5rem;
 
 }
+
+#fileName {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translate(0, -50%);
+    z-index: 3;
+    text-align: center;
+}

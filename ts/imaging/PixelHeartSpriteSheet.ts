@@ -1,5 +1,5 @@
 import { Vector } from "../../2DGameEngine/js/2DGEMath.js"
-import { Camera, GameObject } from "../../2DGameEngine/js/2DGameEngine.js"
+import { Camera, GameObject, ImageManipulator } from "../../2DGameEngine/js/2DGameEngine.js"
 import { DrawImageCommand } from "./Commands/DrawImageCommand.js"
 import { Selection } from "./Commands/SelectionCommand.js"
 import PixelHeartImage from "./PixelHeartImage.js"
@@ -98,6 +98,17 @@ export default class PixelHeartSpriteSheet extends GameObject {
 
     }
 
+    importImage(image: HTMLImageElement): void {
+        this.sheetContent.size = [image.width, image.height]
+        this.sheetContent.images = [{
+            image: new PixelHeartImage(image.width, image.height),
+            position: [0, 0]
+        }]
+
+        this.sheetContent.images[0].image.pushCommand(new DrawImageCommand(image))
+
+    }
+
     export(): SheetExport {
 
         let sheetExport: SheetExport = {
@@ -120,6 +131,38 @@ export default class PixelHeartSpriteSheet extends GameObject {
 
     }
 
+    exportAsString(): string {
+
+        let data = `data:text/json;charset=utf-8,` + encodeURIComponent(JSON.stringify(this.export()))
+
+        return data
+
+    }
+
+    exportImage() {
+
+        let bottomright = this.getBottomRight()
+
+        let imageManipulator = new ImageManipulator(
+            (bottomright.x + 1) * this.sheetContent.size[0],
+            (bottomright.y + 1) * this.sheetContent.size[1]
+        )
+
+        for (let { position, image } of this.sheetContent.images) {
+
+            image.build()
+
+            imageManipulator.ctx.drawImage(
+                image.canvas,
+                position[0] * this.sheetContent.size[0],
+                position[1] * this.sheetContent.size[1]
+            )
+
+        }
+
+        return imageManipulator.print()
+
+    }
 
     onAdd(): void {
 
@@ -138,6 +181,15 @@ export default class PixelHeartSpriteSheet extends GameObject {
         const zoom = 32 / maxDimension
 
         this.camera.transform.scale.set(zoom, zoom)
+
+    }
+
+    getBottomRight(): Vector {
+
+        let right = Math.max(...this.sheetContent.images.map(img => img.position[0]))
+        let bottom = Math.max(...this.sheetContent.images.map(img => img.position[1]))
+
+        return new Vector(right, bottom)
 
     }
 

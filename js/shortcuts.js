@@ -7,8 +7,11 @@ function shortcut(eventName, ctrl, shift, alt, key) {
     };
 }
 const shortcuts = {
-    save: shortcut('save', true, false, false, 'z'),
-    saveas: shortcut('saveas', true, false, false, 'z'),
+    save: shortcut('save', true, false, false, 's'),
+    saveas: shortcut('saveas', true, true, false, 'S'),
+    export: shortcut('export', true, false, false, 'e'),
+    exportas: shortcut('exportas', true, true, false, 'E'),
+    open: shortcut('open', true, false, false, 'o'),
     undo: shortcut('undo', true, false, false, 'z'),
     redo: shortcut('redo', true, false, false, 'y'),
     cut: shortcut('cut', true, false, false, 'x'),

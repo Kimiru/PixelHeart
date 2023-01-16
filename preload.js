@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, contextBridge, dialog } = require('electron')
 
 function toMain(event) {
     window.addEventListener(event, evt => ipcRenderer.send(event, evt.detail))
@@ -12,6 +12,8 @@ function toRender(event) {
 document.addEventListener('DOMContentLoaded', () => {
 
     toMain('Language')
+    toMain('requestFilename')
+    toRender('receiveFilename')
     toRender('newFile')
     toRender('save')
     toRender('undo')
@@ -22,5 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 window.addEventListener('electron', (event) => {
-    window.dispatchEvent(new Event('removeShortcuts'))
+    // window.dispatchEvent(new Event('removeShortcuts'))
 })
+
+contextBridge.exposeInMainWorld('electron', true)
